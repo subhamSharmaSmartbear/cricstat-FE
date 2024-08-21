@@ -1,6 +1,8 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Register from "./pages/Register";
-
+import Sidebar from "./components/Sidebar";
+import Header from "./components/Header";
+import Matches from "./pages/Matches";
 
 function App() {
   // const navigate = useNavigate();
@@ -8,31 +10,36 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/register" element={<Register />} />
-        {/* <Route path="*" element={<DefaultContainer />} /> */}
-
+        <Route path="*" element={<DefaultContainer />} />
       </Routes>
     </BrowserRouter>
   );
 }
 
-// function DefaultContainer({ loader }) {
-//   return (
-//     <div className="w-[100vw] h-[100%] flex items-center  overflow-x-hidden">
-//       <Sidebar />
-//       <div className="w-[93vw] h-[100vh]  flex flex-col main overflow-hidden">
-//         <Header />
-//         <div className="w-[100%] h-[90vh] overflow-auto">
-//           <Routes>
-//             <Route
-//               path="/dashboard"
-//               element={user ? <Dashboard /> : <Navigate to="/" />}
-//             />
-            
-//           </Routes>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
+function DefaultContainer({ loader }) {
+  const user = true;
+
+
+
+
+
+
+  return (
+    <div className="w-[100vw] h-[100%] flex items-center  overflow-x-hidden">
+      <Sidebar />
+      <div className="w-[80vw] h-[100vh] bg-[#434343] flex flex-col main overflow-hidden p-[2rem]">
+        <Header />
+        <div className="w-[100%] h-[90vh] overflow-auto">
+          <Routes>
+            <Route path="/" element={<Navigate to="/matches" />} />
+            <Route path="/matches" element={<Matches page={"matches"}/>} />
+
+            <Route path="*" element={<Navigate to="/matches" />} />
+          </Routes>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default App;
