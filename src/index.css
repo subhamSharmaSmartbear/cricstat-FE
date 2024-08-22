@@ -1,3 +1,62 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 12px;
+    }
+  
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f1f1f1; /* Track color */
+    }
+  
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #888; /* Scroll thumb color */
+      border-radius: 10px;
+    }
+  
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #555; /* Scroll thumb hover color */
+    }
+  
+    /* Firefox scrollbar styling */
+    .custom-scrollbar {
+      scrollbar-width: none;
+      scrollbar-color: #FF730D #f1f1f1; /* Thumb color and track color */
+    }
+  }
+
+  /* Hide scrollbar initially */
+.hide-scrollbar {
+    overflow-y: scroll;
+    scrollbar-width: none; /* For Firefox */
+  }
+  
+  /* Custom scrollbar style for WebKit browsers */
+  .hide-scrollbar::-webkit-scrollbar {
+    width: 0;
+  }
+  
+  .scrollable-content {
+    /* Add your custom scrollbar styles here */
+    scrollbar-width: none; /* For Firefox */
+  }
+  
+  .scrollable-content::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  .scrollable-content::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Track color */
+  }
+  
+  .scrollable-content::-webkit-scrollbar-thumb {
+    background: #888; /* Thumb color */
+    border-radius: 10px;
+  }
+  
+  .scrollable-content::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Thumb color on hover */
+  }
+  

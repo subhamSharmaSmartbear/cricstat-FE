@@ -21,7 +21,7 @@ const Sidebar = () => {
     if (currentUrl.includes("teams")) {
       setPage("teams");
     }
-  }, []);
+  }, [useLocation()]);
 
   
   

@@ -1,14 +1,47 @@
-import React from 'react'
-
+import React, { useState, useEffect } from "react";
+import LiveMatches from "../components/LiveMatches";
+import UpcomingMatches from "../components/UpcomingMatches";
+import PastMatches from "../components/PastMatches";
 
 const Matches = () => {
-  return (
-    <div>
-      <div >
-        
-      </div>
-    </div>
-  )
-}
+  const [type, setType] = useState("live");
 
-export default Matches
+  return (
+    <div className="rounded-[10px] w-[100%] bg-black h-[100%] p-[2rem] flex flex-col gap-[1rem]">
+      <div className="  h-[10%] flex items-center gap-[2rem] text-[22px] text-white text-light ">
+        <button
+          className={`${type === "live" ? "text-[#FF730D]" : "text-white"}`}
+          onClick={() => setType("live")}
+        >
+          Live
+        </button>
+        <button
+          className={`${type === "upcoming" ? "text-[#FF730D]" : "text-white"}`}
+          onClick={() => setType("upcoming")}
+        >
+          Upcoming
+        </button>
+        <button
+          className={`${type === "past" ? "text-[#FF730D]" : "text-white"}`}
+          onClick={() => setType("past")}
+        >
+          Past
+        </button>
+      </div>
+
+      {
+        type === "live" && <LiveMatches/>
+      }
+      {
+        type === "upcoming" && <UpcomingMatches/>
+      }
+      {
+        type === "past" && <PastMatches/>
+      }
+      
+      
+    </div>
+  );
+};
+
+export default Matches;

@@ -27,7 +27,7 @@ function DefaultContainer({ loader }) {
   return (
     <div className="w-[100vw] h-[100%] flex items-center  overflow-x-hidden">
       <Sidebar />
-      <div className="w-[80vw] h-[100vh] bg-[#434343] flex flex-col main overflow-hidden p-[2rem]">
+      <div className="w-[80vw] h-[100vh] bg-[#434343] flex flex-col main overflow-hidden p-[2rem] gap-[1rem]">
         <Header />
         <div className="w-[100%] h-[90vh] overflow-auto">
           <Routes>
