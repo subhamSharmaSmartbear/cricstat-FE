@@ -3,6 +3,7 @@ import Register from "./pages/Register";
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
 import Matches from "./pages/Matches";
+import Teams from "./pages/Teams";
 
 function App() {
   // const navigate = useNavigate();
@@ -33,6 +34,7 @@ function DefaultContainer({ loader }) {
           <Routes>
             <Route path="/" element={<Navigate to="/matches" />} />
             <Route path="/matches" element={<Matches page={"matches"}/>} />
+            <Route path="/teams" element={<Teams page={"teams"}/>} />
 
             <Route path="*" element={<Navigate to="/matches" />} />
           </Routes>
