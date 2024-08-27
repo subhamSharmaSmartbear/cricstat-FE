@@ -2,11 +2,8 @@ import React, { useState, useEffect } from "react";
 import crickstat from "../assets/crickstatLogoBlackBg.svg";
 import { Link, useLocation } from "react-router-dom";
 
-
-
 const Sidebar = () => {
   const [page, setPage] = useState("");
- 
 
   const location = useLocation();
 
@@ -23,13 +20,12 @@ const Sidebar = () => {
     }
   }, [useLocation()]);
 
-  
-  
-
   return (
     <div className="w-[20vw] h-[100vh] bg-black text-white p-[1rem]">
       <div className="w-[100%] h-[15vh] ">
-        <img src={crickstat} className="w-[100%]" alt="logo" />
+        <Link className="w-[100%]" to={"/matches"}>
+          <img src={crickstat} className="w-[100%]" alt="logo" />
+        </Link>
       </div>
       <div className="w-[100%] h-[85%]  flex flex-col items-end gap-[1.2rem] text-[24px] p-[1rem]">
         <Link

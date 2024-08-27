@@ -1,17 +1,18 @@
 import React, { useState } from 'react'
 import mi from "../assets/mi.svg"
 import Squad from './Squad';
-
+import Matches from './Matches';
+import { Link } from 'react-router-dom';
 const MyTeams = () => {
 
   const [type,setType] = useState("squad");
 
   return (
     <div
-      className={` w-[100%]  h-[100%]  flex flex-col items-center gap-[1rem]`}
+      className={` w-[100%]  h-[100%]  flex flex-col items-center gap-[1rem] overflow-y-hidden`}
     >
       <div className='w-[100%] text-[18px] font-medium h-[10%] text-white flex items-center justify-between'>
-        <button className='px-[1rem] py-[0.5rem] rounded-[10px]  bg-[#434343]'>Back</button>
+        <Link className='px-[1rem] py-[0.5rem] rounded-[10px]  bg-[#434343]' to={"/matches"}>Back</Link>
         <button className='px-[1rem] py-[0.5rem] rounded-[10px]  bg-[#434343]'>Manage Team</button>
       </div>
       <div className='w-[100%]  h-[20%] flex justify-between gap-[1rem]'>
@@ -37,6 +38,9 @@ const MyTeams = () => {
       </div>
       {
         type === "squad" && <Squad/>
+      }
+      {
+        type === "matches" && <Matches/>
       }
     </div>
   )
