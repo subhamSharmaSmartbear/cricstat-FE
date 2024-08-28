@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import mi from "../assets/mi.svg"
 import Squad from './Squad';
 import Matches from './Matches';
+import Statistics from './Statistics';
 import { Link } from 'react-router-dom';
 const MyTeams = () => {
 
@@ -41,6 +42,9 @@ const MyTeams = () => {
       }
       {
         type === "matches" && <Matches/>
+      }
+      {
+        type === "statistics" && <Statistics/>
       }
     </div>
   )
