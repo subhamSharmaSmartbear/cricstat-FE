@@ -1,3 +1,4 @@
+import { fi } from "date-fns/locale";
 import { FieldProps } from "formik";
 import React from "react";
 import Select from "react-select";
@@ -21,7 +22,8 @@ export const CustomSelect = ({
   field,
   form,
   options,
-  isMulti = false
+  isMulti=false,
+  
 }: CustomSelectProps) => {
   const onChange = (option: ValueType<Option | Option[]>) => {
     form.setFieldValue(
@@ -30,6 +32,10 @@ export const CustomSelect = ({
         ? (option as Option[]).map((item: Option) => item.value)
         : (option as Option).value
     );
+    console.log(field);
+    // console.log(field)
+   
+    
   };
 
   const getValue = () => {
@@ -40,6 +46,7 @@ export const CustomSelect = ({
     } else {
       return isMulti ? [] : ("" as any);
     }
+    
   };
 
   return (

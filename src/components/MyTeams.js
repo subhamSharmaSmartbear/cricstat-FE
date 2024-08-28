@@ -4,12 +4,13 @@ import Squad from './Squad';
 import Matches from './Matches';
 import Statistics from './Statistics';
 import Tournaments from './Tournaments';
-
+import ManageTeamModal from './Modal/ManageTeamModal';
 
 import { Link } from 'react-router-dom';
 const MyTeams = () => {
 
   const [type,setType] = useState("squad");
+  const [manageTeamModal, setManageTeamModal] = useState("false");
 
   return (
     <div
@@ -17,7 +18,7 @@ const MyTeams = () => {
     >
       <div className='w-[100%] text-[18px] font-medium h-[10%] text-white flex items-center justify-between'>
         <Link className='px-[1rem] py-[0.5rem] rounded-[10px]  bg-[#434343]' to={"/matches"}>Back</Link>
-        <button className='px-[1rem] py-[0.5rem] rounded-[10px]  bg-[#434343]'>Manage Team</button>
+        <button className='px-[1rem] py-[0.5rem] rounded-[10px]  bg-[#434343]' onClick={()=>setManageTeamModal("true")}>Manage Team</button>
       </div>
       <div className='w-[100%]  h-[20%] flex justify-between gap-[1rem]'>
         <div className='w-[20%] h-[100%] '>
@@ -52,6 +53,9 @@ const MyTeams = () => {
       {
         type === "statistics" && <Statistics/>
       }
+      {manageTeamModal === "true" && (
+        <ManageTeamModal setManageTeamModal={setManageTeamModal}/>
+      )}
     </div>
   )
 }

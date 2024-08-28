@@ -1,10 +1,17 @@
 import React from "react";
+
 import { useState } from "react";
 import MyTeams from "../components/MyTeams";
 import AllTeams from "../components/AllTeams";
 
+import CreateTeamModal from "../components/Modal/CreateTeamModal";
+
 const Teams = () => {
   const [type, setType] = useState("all");
+  const [createTeamModal, setCreateTeamModal] = useState("false");
+  
+
+  
 
   return (
     <div className="rounded-[10px] w-[100%] bg-black h-[100%] p-[2rem] flex flex-col gap-[1rem]">
@@ -23,16 +30,20 @@ const Teams = () => {
             My team
           </button>
         </div>
-        <button className=" p-[0.8rem] font-bold rounded-[10px] bg-[#434343]">
-          Create Team
-        </button>
+        {type === "all" && (
+          <button
+            className=" p-[0.8rem] font-bold rounded-[10px] bg-[#434343]"
+            onClick={() => setCreateTeamModal("true")}
+          >
+            Create Team
+          </button>
+        )}
       </div>
-      {
-        type === "all" && <AllTeams/>
-      }
-      {
-        type === "my" && <MyTeams/>
-      }
+      {type === "all" && <AllTeams />}
+      {type === "my" && <MyTeams />}
+      {createTeamModal === "true" && (
+        <CreateTeamModal setCreateTeamModal={setCreateTeamModal}/>
+      )}
       
     </div>
   );

@@ -45,8 +45,7 @@ const Signup = ({ setPage }) => {
 
           const arr = responseData.map((e)=> {return {label : e.name.common, value : e.cca2}})
           setCountries(arr)
-          
-        //   responseData.map((e)=>console.log(e.cca2))
+
           
         } catch (error) {
           console.log("Internal Server Error");
