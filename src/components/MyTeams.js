@@ -3,6 +3,9 @@ import mi from "../assets/mi.svg"
 import Squad from './Squad';
 import Matches from './Matches';
 import Statistics from './Statistics';
+import Tournaments from './Tournaments';
+
+
 import { Link } from 'react-router-dom';
 const MyTeams = () => {
 
@@ -18,7 +21,7 @@ const MyTeams = () => {
       </div>
       <div className='w-[100%]  h-[20%] flex justify-between gap-[1rem]'>
         <div className='w-[20%] h-[100%] '>
-          <img src={mi} className='w-[100%] h-[100%]'/>
+          <img src={mi} className='w-[100%] h-[100%]' alt='team_logo'/>
         </div>
         <div className='w-[60%] h-[100%]  flex flex-col'>
           <span className='text-white text-[32px] font-bold truncate'>Mumbai Indians</span>
@@ -42,6 +45,9 @@ const MyTeams = () => {
       }
       {
         type === "matches" && <Matches/>
+      }
+      {
+        type === "tournaments" && <Tournaments/>
       }
       {
         type === "statistics" && <Statistics/>
