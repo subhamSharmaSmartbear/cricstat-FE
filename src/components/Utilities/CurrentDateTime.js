@@ -27,15 +27,14 @@ const CurrentDateTime = () => {
     return () => clearInterval(intervalId);
   }, []);
 
-  const dateStr = '8/21/2024';
-  const formattedDate = formatDate(dateStr);
+  const formattedDate = formatDate(currentDateTime.date);
 
   return (
-    <div className=' w-[20vw] h-[100%] flex flex-col justify-end font-light'>
-      
-     
-      <p className='text-white text-[40px]'>{currentDateTime.time.slice(0, -2)} <span className='text-[20px]'>{currentDateTime.time.slice(-2)}</span></p>
-      
+    <div className='w-[20vw] h-[100%] flex flex-col justify-end font-light'>
+      <p className='text-white text-[40px]'>
+        {currentDateTime.time.slice(0, -2)}{' '}
+        <span className='text-[20px]'>{currentDateTime.time.slice(-2)}</span>
+      </p>
       <p className='text-white text-[22px] font-light'>{formattedDate}</p>
     </div>
   );
