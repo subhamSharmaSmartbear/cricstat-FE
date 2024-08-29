@@ -1,6 +1,6 @@
 import React from "react";
-import mi from "../assets/mi.svg";
-import kkr from "../assets/kkr.svg";
+import mi from "../../assets/mi.svg";
+import kkr from "../../assets/kkr.svg";
 
 const UpcomingMatches = () => {
   return (

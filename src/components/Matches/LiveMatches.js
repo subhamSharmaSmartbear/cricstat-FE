@@ -1,15 +1,17 @@
 import React from 'react'
-import mi from "../assets/mi.svg"
-import kkr from "../assets/kkr.svg"
+import mi from "../../assets/mi.svg"
+import kkr from "../../assets/kkr.svg"
 
-const Matches = () => {
+const LiveMatches = () => {
   return (
-    <div className='w-[100%]  h-[60%] flex flex-col  justify-between overflow-y-scroll  scrollable-content custom-scrollbar  '>
+    <div
+        className={`scrollable-content  w-[100%] min-h-[20%] max-h-[90%]  overflow-y-scroll custom-scrollbar`}
+      >
         <div className="w-[100%] h-[15vh] mt-[1.5rem] rounded-[10px] bg-[#434343] flex justify-between">
           <div className="w-[40%] h-[100%]  p-[1rem]">
             <div className="w-[100%] h-[35%]  flex gap-[1rem]">
-              <span className="text-white font-bold ">
-                12/05/2024
+              <span className="text-green-400 font-bold animate-pulse">
+                LIVE
               </span>
               <span className="text-white font-extralight w-[90%] truncate">
                 Wankhade Stadium{" "}
@@ -46,11 +48,14 @@ const Matches = () => {
             </div>
           </div>
         </div>
+
+
+
         <div className="w-[100%] h-[15vh] mt-[1.5rem] rounded-[10px] bg-[#434343] flex justify-between">
           <div className="w-[40%] h-[100%]  p-[1rem]">
             <div className="w-[100%] h-[35%]  flex gap-[1rem]">
-              <span className="text-white font-bold ">
-                12/05/2024
+              <span className="text-green-400 font-bold animate-pulse">
+                LIVE
               </span>
               <span className="text-white font-extralight w-[90%] truncate">
                 Wankhade Stadium{" "}
@@ -87,11 +92,13 @@ const Matches = () => {
             </div>
           </div>
         </div>
+
+
         <div className="w-[100%] h-[15vh] mt-[1.5rem] rounded-[10px] bg-[#434343] flex justify-between">
           <div className="w-[40%] h-[100%]  p-[1rem]">
             <div className="w-[100%] h-[35%]  flex gap-[1rem]">
-              <span className="text-white font-bold ">
-                12/05/2024
+              <span className="text-green-400 font-bold animate-pulse">
+                LIVE
               </span>
               <span className="text-white font-extralight w-[90%] truncate">
                 Wankhade Stadium{" "}
@@ -128,11 +135,13 @@ const Matches = () => {
             </div>
           </div>
         </div>
+
+
         <div className="w-[100%] h-[15vh] mt-[1.5rem] rounded-[10px] bg-[#434343] flex justify-between">
           <div className="w-[40%] h-[100%]  p-[1rem]">
             <div className="w-[100%] h-[35%]  flex gap-[1rem]">
-              <span className="text-white font-bold ">
-                12/05/2024
+              <span className="text-green-400 font-bold animate-pulse">
+                LIVE
               </span>
               <span className="text-white font-extralight w-[90%] truncate">
                 Wankhade Stadium{" "}
@@ -169,11 +178,13 @@ const Matches = () => {
             </div>
           </div>
         </div>
+
+        
         <div className="w-[100%] h-[15vh] mt-[1.5rem] rounded-[10px] bg-[#434343] flex justify-between">
           <div className="w-[40%] h-[100%]  p-[1rem]">
             <div className="w-[100%] h-[35%]  flex gap-[1rem]">
-              <span className="text-white font-bold ">
-                12/05/2024
+              <span className="text-green-400 font-bold animate-pulse">
+                LIVE
               </span>
               <span className="text-white font-extralight w-[90%] truncate">
                 Wankhade Stadium{" "}
@@ -210,8 +221,8 @@ const Matches = () => {
             </div>
           </div>
         </div>
-    </div>
+      </div>
   )
 }
 
-export default Matches
+export default LiveMatches

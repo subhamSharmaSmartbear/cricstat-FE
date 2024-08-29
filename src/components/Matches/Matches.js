@@ -1,13 +1,10 @@
 import React from 'react'
-import mi from "../assets/mi.svg";
-import kkr from "../assets/kkr.svg";
+import mi from "../../assets/mi.svg"
+import kkr from "../../assets/kkr.svg"
 
-
-const PastMatches = () => {
+const Matches = () => {
   return (
-    <div
-        className={`scrollable-content  w-[100%] min-h-[20%] max-h-[90%]  overflow-y-scroll custom-scrollbar`}
-      >
+    <div className='w-[100%]  h-[60%] flex flex-col  justify-between overflow-y-scroll  scrollable-content custom-scrollbar  '>
         <div className="w-[100%] h-[15vh] mt-[1.5rem] rounded-[10px] bg-[#434343] flex justify-between">
           <div className="w-[40%] h-[100%]  p-[1rem]">
             <div className="w-[100%] h-[35%]  flex gap-[1rem]">
@@ -213,12 +210,8 @@ const PastMatches = () => {
             </div>
           </div>
         </div>
-
-
-
-        
-      </div>
+    </div>
   )
 }
 
-export default PastMatches
+export default Matches

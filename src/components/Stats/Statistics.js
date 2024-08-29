@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import BattingStats from './BattingStats'
 import BallingStats from './BallingStats'
-
+import BattingStats from './BattingStats'
 const Statistics = () => {
     const [type,setType] = useState("batting")
   return (

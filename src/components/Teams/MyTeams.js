@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import mi from "../assets/mi.svg"
+import mi from "../../assets/mi.svg"
 import Squad from './Squad';
-import Matches from './Matches';
-import Statistics from './Statistics';
-import Tournaments from './Tournaments';
-import ManageTeamModal from './Modal/ManageTeamModal';
+import Matches from '../Matches/Matches';
+import Statistics from '../Stats/Statistics';
+import Tournaments from '../Tournaments/Tournaments';
+import ManageTeamModal from '../Modal/ManageTeamModal';
 
 import { Link } from 'react-router-dom';
 const MyTeams = () => {

@@ -1,8 +1,8 @@
 import React from "react";
 
 import { useState } from "react";
-import MyTeams from "../components/MyTeams";
-import AllTeams from "../components/AllTeams";
+import MyTeams from "../components/Teams/MyTeams";
+import AllTeams from "../components/Teams/AllTeams";
 
 import CreateTeamModal from "../components/Modal/CreateTeamModal";
 

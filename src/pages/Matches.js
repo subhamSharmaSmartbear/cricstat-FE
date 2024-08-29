@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import LiveMatches from "../components/LiveMatches";
-import UpcomingMatches from "../components/UpcomingMatches";
-import PastMatches from "../components/PastMatches";
+import LiveMatches from "../components/Matches/LiveMatches";
+import UpcomingMatches from "../components/Matches/UpcomingMatches";
+import PastMatches from "../components/Matches/PastMatches";
 
 const Matches = () => {
   const [type, setType] = useState("live");

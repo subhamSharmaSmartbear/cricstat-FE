@@ -1,7 +1,7 @@
 import React from 'react'
-import rohit from "../assets/rohitSharma.svg"
-import dewald from "../assets/dewald.svg"
-import airplane from "../assets/airplane.svg"
+import rohit from "../../assets/rohitSharma.svg"
+import dewald from "../../assets/dewald.svg"
+import airplane from "../../assets/airplane.svg"
 const Squad = () => {
   return (
     <div className='w-[100%]  h-[60%] flex flex-wrap -mx-2 gap-[1rem] justify-between overflow-y-scroll  scrollable-content custom-scrollbar  '>

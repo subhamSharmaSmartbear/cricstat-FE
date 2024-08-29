@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Formik, Field } from "formik";
 import * as Yup from "yup";
-import CustomSelect from "./CustomSelect.tsx";
+import CustomSelect from "./Utilities/CustomSelect.tsx";
 import { useEffect } from "react";
 
 
