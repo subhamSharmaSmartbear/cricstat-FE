@@ -18,7 +18,7 @@ const Sidebar = () => {
     if (currentUrl.includes("teams")) {
       setPage("teams");
     }
-    if (currentUrl.includes("tournaments")) {
+    if (currentUrl.includes("tournaments")|| currentUrl.includes("tournament") ) {
       setPage("tournaments");
     }
   }, [useLocation()]);
