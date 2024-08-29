@@ -1,7 +1,6 @@
 import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { useState } from "react";
 import Select from "react-dropdown-select";
 
 const CreateTeamModal = ({setCreateTeamModal}) => {

@@ -1,4 +1,3 @@
-import { fi } from "date-fns/locale";
 import { FieldProps } from "formik";
 import React from "react";
 import Select from "react-select";

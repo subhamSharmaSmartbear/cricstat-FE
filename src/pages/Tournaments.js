@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import AllTournaments from "../components/Tournaments/AllTournaments";
 import MyTournaments from "../components/Tournaments/MyTournaments";
+import CreateTournamentModal from "../components/Modal/CreateTournamentModal";
 
 const Tournaments = () => {
   const [type, setType] = useState("all");
+  const [createTournamentModal, setCreateTournamentModal] = useState("false");
+
   return (
     <div className="rounded-[10px] w-[100%] bg-black h-[100%] flex flex-col items-center">
       <div className="w-[95%] h-[10%]  flex items-center justify-between ">
@@ -25,13 +28,17 @@ const Tournaments = () => {
             My Tournaments
           </button>
         </div>
-        <button className=" p-[0.8rem] font-bold rounded-[10px] bg-[#434343] text-white">
+        <button onClick={()=>setCreateTournamentModal("true")} className=" p-[0.8rem] font-bold rounded-[10px] bg-[#434343] text-white">
           Create Tournament
         </button>
       </div>
 
       {type === "all" && <AllTournaments />}
       {type === "my" && <MyTournaments />}
+
+      {
+        createTournamentModal === "true" && <CreateTournamentModal setCreateTournamentModal={setCreateTournamentModal}/>
+      }
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import LiveMatches from "../components/Matches/LiveMatches";
 import UpcomingMatches from "../components/Matches/UpcomingMatches";
 import PastMatches from "../components/Matches/PastMatches";
