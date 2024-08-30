@@ -18,19 +18,22 @@ const Sidebar = () => {
     if (currentUrl.includes("teams")) {
       setPage("teams");
     }
-    if (currentUrl.includes("tournaments")|| currentUrl.includes("tournament") ) {
+    if (
+      currentUrl.includes("tournaments") ||
+      currentUrl.includes("tournament")
+    ) {
       setPage("tournaments");
     }
   }, [useLocation()]);
 
   return (
-    <div className="w-[20vw] h-[100vh] bg-black text-white p-[1rem]">
+    <div className="w-[20vw] h-[100vh] bg-black text-white p-[1rem] flex flex-col">
       <div className="w-[100%] h-[15vh] ">
         <Link className="w-[100%]" to={"/matches"}>
           <img src={crickstat} className="w-[100%]" alt="logo" />
         </Link>
       </div>
-      <div className="w-[100%] h-[85%]  flex flex-col items-end gap-[1.2rem] text-[24px] p-[1rem]">
+      <div className="w-[100%] h-[80%]  flex flex-col items-end gap-[1.2rem] text-[24px] p-[1rem]">
         <Link
           to="/matches"
           className={` ${
@@ -53,14 +56,14 @@ const Sidebar = () => {
         >
           Tournaments
         </Link>
-        <Link
+        {/* <Link
           to="/rankings"
           className={` ${
             page === "rankings" ? "text-[#FF730D]" : "text-white"
           } `}
         >
           Rankings
-        </Link>
+        </Link> */}
         <Link
           to="/players"
           className={` ${
@@ -69,13 +72,18 @@ const Sidebar = () => {
         >
           Players
         </Link>
-        <Link
+        {/* <Link
           to="/news"
           className={` ${page === "news" ? "text-[#FF730D]" : "text-white"} `}
         >
           News
-        </Link>
+        </Link> */}
+
+        
       </div>
+      <button className="text-white  bg-black w-[8rem] h-[3rem] rounded-[10px] border self-end">
+          Log out
+        </button>
     </div>
   );
 };
