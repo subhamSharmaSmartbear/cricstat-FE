@@ -429,6 +429,19 @@ const CreateTeamModal = ({setCreateTeamModal}) => {
                     placeholder="Select Wicket Keeper"
                     onChange={(value) => setFieldValue("wicketKeeper", value)}
                   />
+                  <span className="text-white">Add picture</span>
+                  <input
+                      type="file"
+                      name="photo"
+                      accept="image/*"
+                      required
+                      onChange={(e) =>
+                        setFieldValue("photo", e.currentTarget.files[0])
+                      }
+                    />
+                    {
+                        values.photo && <span className='text-white'>{values.photo.name}</span>
+                    }
 
                   <button
                     className="text-white justify-self-end border w-[10rem] p-[0.5rem]"
