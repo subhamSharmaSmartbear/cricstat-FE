@@ -86,12 +86,6 @@ const Squad = () => {
           <span className='text-[#E0E0E0]'>Batter</span>
         </div>
       </div>
-      
-      
-      
-      
-      
-     
     </div>
   )
 }

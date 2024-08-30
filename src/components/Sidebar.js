@@ -24,6 +24,12 @@ const Sidebar = () => {
     ) {
       setPage("tournaments");
     }
+    if (
+      currentUrl.includes("players") ||
+      currentUrl.includes("player")
+    ) {
+      setPage("players");
+    }
   }, [useLocation()]);
 
   return (
