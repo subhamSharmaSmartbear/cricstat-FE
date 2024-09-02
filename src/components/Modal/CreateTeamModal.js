@@ -314,8 +314,8 @@ const CreateTeamModal = ({setCreateTeamModal}) => {
             alert("More than 5 overseas players in the team is not allowed.")
             return
           }
-          else if(player15Count > 15){
-            alert("More than 15 players in the team is not allowed.")
+          else if(player15Count !== 15){
+            alert("Please add 15 players in the team.")
             return
           }
 
@@ -328,8 +328,8 @@ const CreateTeamModal = ({setCreateTeamModal}) => {
             alert("More than 3 overseas players in playing 11 is not allowed.")
             return
           }
-          else if(player11Count > 11){
-            alert("More than 11 players in playing 11 is not allowed.")
+          else if(player11Count !== 11){
+            alert("Please add 11 players in the playing 11.")
             return
           }
           

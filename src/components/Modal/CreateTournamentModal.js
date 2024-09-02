@@ -26,7 +26,19 @@ const CreateTournamentModal = ({setCreateTournamentModal}) => {
         },
         {
           "id": 15,
-          "name": "Team Bangladesh"
+          "name": "Team pune"
+        },
+        {
+          "id": 16,
+          "name": "Team kota"
+        },
+        {
+          "id": 17,
+          "name": "Team kol"
+        },
+        {
+          "id": 18,
+          "name": "Team mum"
         },
         
       ]
@@ -53,7 +65,16 @@ const CreateTournamentModal = ({setCreateTournamentModal}) => {
         initialValues={{ name: "", tournamentType:"",teams:[],date:"",photo:"" }}
         onSubmit={(values) => {
          
+          const teamsCount = values.teams.length;
+          
+          if(teamsCount !== 6) {
+            alert("Please add 6 teams in a tournament")
+            return
+          }
+
           console.log(values);
+          
+          
         }}
       >
         {({
