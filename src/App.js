@@ -8,6 +8,7 @@ import Teams from "./pages/Teams";
 import Tournaments from "./pages/Tournaments";
 import Tournament from "./pages/Tournament";
 import Players from "./pages/Players";
+import Player from "./pages/Player";
 
 
 function App() {
@@ -44,9 +45,10 @@ function DefaultContainer({ loader }) {
             <Route path="/tournaments" element={<Tournaments page={"tournaments"}/>} />
             <Route path="/tournament/:id" element={<Tournament page={"tournaments"}/>} />
             <Route path="/players" element={<Players page={"players"}/>} />
+            <Route path="/player/:id" element={<Player page={"player"}/>} />
 
             <Route path="*" element={<Navigate to="/matches" />} />
-          </Routes>
+          </Routes>  
         </div>
       </div>
     </div>

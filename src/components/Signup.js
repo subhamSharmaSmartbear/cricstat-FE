@@ -19,10 +19,7 @@ const Signup = ({ setPage }) => {
     password: Yup.string()
       .required("Password is a required field")
       .min(8, "Password must be at least 8 characters"),
-    role: Yup.string().required(),
-    dob: Yup.string().required(),
-    photo: Yup.string().required(),
-    speciality: Yup.string(),
+    
   });
 
   
@@ -63,10 +60,7 @@ const Signup = ({ setPage }) => {
         email: "",
         password: "",
         name: "",
-        role: "",
-        country: "",
-        dob: "",
-        speciality: "",
+        
       }}
       onSubmit={(values) => {
         // Alert the input values of the form that we filled
@@ -153,7 +147,7 @@ const Signup = ({ setPage }) => {
                       </label>
                     </div>
                   </div>
-                  {values.role === "player" && <div className="w-[100%] h-[3rem]">
+                  {/* <div className="w-[100%] h-[3rem]">
                     <span className="text-[1.2rem]">Speciality</span>
                     <div
                       role="group"
@@ -177,7 +171,7 @@ const Signup = ({ setPage }) => {
                         All rounder
                       </label>
                     </div>
-                  </div>}
+                  </div>
 
                   <div className="w-[100%] flex flex-col">
                     <span className="text-[1.2rem]">Date of birth</span>
@@ -218,7 +212,7 @@ const Signup = ({ setPage }) => {
                         setFieldValue("photo", e.currentTarget.files[0])
                       }
                     />
-                  </div>
+                  </div> */}
 
                   <button
                     type="submit "

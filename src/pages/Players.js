@@ -6,7 +6,7 @@ import airplane from "../assets/airplane.svg"
 const Players = () => {
   return (
     <div className="rounded-[10px] w-[100%] bg-black h-[100%] flex flex-wrap -mx-2 gap-[1rem] justify-between overflow-y-scroll  scrollable-content custom-scrollbar p-[3rem]">
-      <div className="w-[280px] h-[350px] bg-[#434343] rounded-[10px] justify-self-start rounded-[10px]">
+      <div className="w-[280px] h-[350px] bg-[#434343] justify-self-start rounded-[10px]">
         <div className="w-[100%] h-[80%] ">
           <img
             src={rohit}
@@ -19,7 +19,7 @@ const Players = () => {
           <span className="text-[#E0E0E0]">Batter</span>
         </div>
       </div>
-      <div className="w-[280px] h-[350px] bg-[#434343] rounded-[10px] justify-self-start rounded-[10px]">
+      <div className="w-[280px] h-[350px] bg-[#434343] rounded-[10px] justify-self-start ">
         <div className="w-[100%] h-[80%] ">
           <img src={dewald} className="w-[100%] h-[100%] object-cover" />
         </div>
