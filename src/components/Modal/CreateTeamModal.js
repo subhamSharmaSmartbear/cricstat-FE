@@ -4,6 +4,8 @@ import * as Yup from "yup";
 import Select from "react-dropdown-select";
 
 const CreateTeamModal = ({setCreateTeamModal}) => {
+
+  const coachCountry = "India";
   
   const players15 = [
     {
@@ -283,13 +285,54 @@ const CreateTeamModal = ({setCreateTeamModal}) => {
     players15: Yup.array().required("Players is a required field"),
     players11: Yup.array().required("Players is a required field"),
   });
+
+//   const handleChangePlayers = (values,setFieldValue) => {
+    
+//     const indiaPlayersCount = values.filter(player => player.value.country !== "India").length;
+
+//     console.log(values);
+    
+//     console.log(indiaPlayersCount);
+    
+//     if (indiaPlayersCount > 5) {
+//         alert("You can't select more than 5 players from India.");
+//     } else {
+//         setFieldValue("player15",values);
+//     }
+// };
   return (
     <div className="w-[100vw] h-[100vh] absolute border bg-[#D9D9D9] top-0 left-0 right-0 bottom-0 bg-opacity-80 flex items-center justify-center">
       <Formik
         validationSchema={schema}
         initialValues={{ name: "", players15: [], players11: [] }}
         onSubmit={(values) => {
-          // Alert the input values of the form that we filled
+         
+          //validating player 15 list.
+          const players15 = values.players15;
+          const player15Count = players15.filter(player => player.value.country !== "India").length;
+          if(player15Count > 5) {
+            alert("More than 5 overseas players in the team is not allowed.")
+            return
+          }
+          else if(player15Count > 15){
+            alert("More than 15 players in the team is not allowed.")
+            return
+          }
+
+
+          //validating player 11 list.
+          const players11 = values.players11;
+          
+          const player11Count = players11.filter(player => player.country !== "India").length;
+          if(player11Count > 3) {
+            alert("More than 3 overseas players in playing 11 is not allowed.")
+            return
+          }
+          else if(player11Count > 11){
+            alert("More than 11 players in playing 11 is not allowed.")
+            return
+          }
+          
           console.log(values);
         }}
       >
@@ -341,7 +384,7 @@ const CreateTeamModal = ({setCreateTeamModal}) => {
                       };
                     })}
                     placeholder="Select 15 players"
-                    onChange={(values) => setFieldValue("players15", values)}
+                    onChange={(values) => setFieldValue("players15",values)}
                     multi
                   />
                   <span className="text-white">Select playing 11</span>

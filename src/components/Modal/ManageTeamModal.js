@@ -290,7 +290,33 @@ const ManageTeamModal = ({setManageTeamModal}) => {
         validationSchema={schema}
         initialValues={{ name: "", players15: [], players11: [] }}
         onSubmit={(values) => {
-          // Alert the input values of the form that we filled
+         
+          //validating player 15 list.
+          const players15 = values.players15;
+          const player15Count = players15.filter(player => player.value.country !== "India").length;
+          if(player15Count > 5) {
+            alert("More than 5 overseas players in the team is not allowed.")
+            return
+          }
+          else if(player15Count > 15){
+            alert("More than 15 players in the team is not allowed.")
+            return
+          }
+
+
+          //validating player 11 list.
+          const players11 = values.players11;
+          
+          const player11Count = players11.filter(player => player.country !== "India").length;
+          if(player11Count > 3) {
+            alert("More than 3 overseas players in playing 11 is not allowed.")
+            return
+          }
+          else if(player11Count > 11){
+            alert("More than 11 players in playing 11 is not allowed.")
+            return
+          }
+          
           console.log(values);
         }}
       >
