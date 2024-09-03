@@ -1,29 +1,57 @@
 import React from 'react'
 import { Formik } from "formik";
 import * as Yup from "yup";
-
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const Login = ({setPage}) => {
 
+  const navigate = useNavigate();
 
     const schema = Yup.object().shape({
-        email: Yup.string()
-          .required("Email is a required field")
-          .email("Invalid email format"),
+        username: Yup.string()
+          .required("Email is a required field"),
         password: Yup.string()
-          .required("Password is a required field")
-          .min(8, "Password must be at least 8 characters"),
+          .required("Password is a required field"),
       });
 
+
+      const handleFormSubmit = async (values) => {
+        console.log(values);
+    
+        try {
+          const response = await fetch(
+            `${process.env.REACT_APP_API_URL_AUTH}api/login`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(values),
+            }
+          );
+    
+          const result = await response.json();
+
+          console.log(result);
+
+          localStorage.setItem("user", JSON.stringify(result));
+
+          if (response.ok) {
+              navigate("/login");
+          } else {
+            toast.error(result.error);
+          }
+        } catch (error) {
+          toast.error("Error:", error);
+        }
+      };
 
   return (
     <Formik
         validationSchema={schema}
-        initialValues={{ email: "", password: "" }}
-        onSubmit={(values) => {
-          // Alert the input values of the form that we filled
-          alert(JSON.stringify(values));
-        }}
+        initialValues={{ username: "", password: "" }}
+        onSubmit={(values) => handleFormSubmit(values)}
       >
         {({
           values,
@@ -40,16 +68,16 @@ const Login = ({setPage}) => {
                   <h1 className="text-[30px]">Login</h1>
                   <div className="w-[100%] bg-[#434343] h-[90%] rounded-[10px] rounded-b-[0] p-[2rem] flex flex-col gap-[4rem]">
                     <div className="w-[100%] h-[3rem]">
-                      <span className="text-[1.2rem]">Email</span>
+                      <span className="text-[1.2rem]">User Name</span>
                       <input
-                        type="email"
-                        name="email"
+                        type="text"
+                        name="username"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values.email}
-                        placeholder="Enter email "
+                        value={values.username}
+                        placeholder="Enter username "
                         className="w-[100%] h-[100%] rounded-[10px] px-[1rem] text-black"
-                        id="email"
+                        id="username"
                       />
                     </div>
                     <div className="w-[100%] h-[3rem]">

@@ -1,57 +1,46 @@
 import React, { useState } from "react";
 import { Formik, Field } from "formik";
 import * as Yup from "yup";
-import CustomSelect from "./Utilities/CustomSelect.tsx";
-import { useEffect } from "react";
-
+import toast from "react-hot-toast";
 
 const Signup = ({ setPage }) => {
-
-
-    const [countries, setCountries] = useState([]);
-
-
   const schema = Yup.object().shape({
-    name: Yup.string().required("Email is a required field"),
-    email: Yup.string()
-      .required("Email is a required field")
-      .email("Invalid email format"),
-    password: Yup.string()
-      .required("Password is a required field")
-      .min(8, "Password must be at least 8 characters"),
-    
+    username: Yup.string().required("Name is a required field"),
+    email: Yup.string().email("Invalid email format"),
+    password: Yup.string().required("Password is a required field"),
   });
 
-  
+  const handleFormSubmit = async (values) => {
+    console.log(values);
 
-  useEffect(() => {
-    const getCountries = async (setData) => {
-        try {
-          const savedUserResponse = await fetch(
-            `https://restcountries.com/v3.1/all`,
-            {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-              },
-            }
-          );
-          const responseData = await savedUserResponse.json();
-    
-          
-
-          const arr = responseData.map((e)=> {return {label : e.name.common, value : e.cca2}})
-          setCountries(arr)
-
-          
-        } catch (error) {
-          console.log("Internal Server Error");
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL_AUTH}api/register`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
         }
-      };
+      );
 
-      getCountries()
-  }, [])
-  
+      const result = await response.json();
+
+      console.log(result);
+
+      if (response.ok) {
+        toast.success(result.message);
+        setTimeout(() => {
+          setPage("login");
+        }, 2000);
+      }  else {
+        toast.error(result.message);
+      }
+    } catch (error) {
+      toast.error(`Error: ${error.message}`);
+    }
+  };
 
   return (
     <Formik
@@ -59,13 +48,9 @@ const Signup = ({ setPage }) => {
       initialValues={{
         email: "",
         password: "",
-        name: "",
-        
+        username: "",
       }}
-      onSubmit={(values) => {
-        // Alert the input values of the form that we filled
-        console.log(values);
-      }}
+      onSubmit={(values) => handleFormSubmit(values)}
     >
       {({
         values,
@@ -87,16 +72,16 @@ const Signup = ({ setPage }) => {
                 <h1 className="text-[30px]">Signup</h1>
                 <div className="w-[100%] bg-[#434343] h-[90%] rounded-[10px] rounded-b-[0] p-[2rem] flex flex-col gap-[2.2rem]">
                   <div className="w-[100%] h-[3rem]">
-                    <span className="text-[1.2rem]">Name</span>
+                    <span className="text-[1.2rem]">Uer Name</span>
                     <input
-                      type="name"
-                      name="name"
+                      type="text"
+                      name="username"
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      value={values.name}
+                      value={values.username}
                       placeholder="Enter name"
                       className="w-[100%] h-[100%] rounded-[10px] px-[1rem] text-black"
-                      id="name"
+                      id="username"
                     />
                   </div>
                   <div className="w-[100%] h-[3rem]">
@@ -134,15 +119,15 @@ const Signup = ({ setPage }) => {
                       className="flex gap-[1rem]"
                     >
                       <label>
-                        <Field type="radio" name="role" value="player" />
+                        <Field type="radio" name="role" value="PLAYER" />
                         Player
                       </label>
                       <label>
-                        <Field type="radio" name="role" value="coach" />
+                        <Field type="radio" name="role" value="COACH" />
                         Coach
                       </label>
                       <label>
-                        <Field type="radio" name="role" value="admin" />
+                        <Field type="radio" name="role" value="ADMIN" />
                         Admin
                       </label>
                     </div>
