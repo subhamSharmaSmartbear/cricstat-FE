@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import rohit from "../assets/rohitSharma.svg";
-import dewald from "../assets/dewald.svg";
-import airplane from "../assets/airplane.svg";
+import Error from "../components/Utilities/Error";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const Players = () => {
   const [allPlayers, setAllPlayer] = useState(null);
@@ -40,7 +39,7 @@ const Players = () => {
     <div className="rounded-[10px] w-[100%] bg-black h-[100%] flex flex-wrap -mx-2 gap-[1rem] justify-start overflow-y-scroll  scrollable-content custom-scrollbar p-[3rem]">
       {allPlayers &&
         allPlayers.map((player) => (
-          <div className="w-[280px] h-[350px] bg-[#434343] justify-self-start rounded-[10px]">
+          <Link to={"/player/3"} className="w-[280px] h-[350px] bg-[#434343] justify-self-start rounded-[10px]">
             <div className="w-[100%] h-[80%] ">
               <img
                 src={player.profilePicture}
@@ -52,10 +51,10 @@ const Players = () => {
               <span className="text-[22px] truncate">{player.name} </span>
               <span className="text-[#E0E0E0]">{player.specialization}</span>
             </div>
-          </div>
+          </Link>
         ))}
 
-        {!allPlayers && <div className="text-white">Error occured</div>}
+        {!allPlayers && <Error/>}
     </div>
   );
 };

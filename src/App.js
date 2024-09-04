@@ -10,6 +10,7 @@ import Tournament from "./pages/Tournament";
 import Players from "./pages/Players";
 import Player from "./pages/Player";
 import Edit from "./pages/Edit"
+import Team from "./pages/Team";
 
 function App() {
   // const navigate = useNavigate();
@@ -42,6 +43,7 @@ function DefaultContainer({ loader }) {
             <Route path="/matches" element={<Matches page={"matches"}/>} />
             <Route path="/match/:id" element={<Match page={"match"}/>} />
             <Route path="/teams" element={<Teams page={"teams"}/>} />
+            <Route path="/team/:id" element={<Team page={"team"}/>} />
             <Route path="/tournaments" element={<Tournaments page={"tournaments"}/>} />
             <Route path="/tournament/:id" element={<Tournament page={"tournaments"}/>} />
             <Route path="/players" element={<Players page={"players"}/>} />

@@ -21,7 +21,7 @@ const Sidebar = () => {
     if (currentUrl.includes("matches") || currentUrl.includes("match")) {
       setPage("matches");
     }
-    if (currentUrl.includes("teams")) {
+    if (currentUrl.includes("teams") || currentUrl.includes("team")) {
       setPage("teams");
     }
     if (
