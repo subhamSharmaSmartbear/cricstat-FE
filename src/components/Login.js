@@ -18,7 +18,7 @@ const Login = ({setPage}) => {
 
       const handleFormSubmit = async (values) => {
         console.log(values);
-    
+      
         try {
           const response = await fetch(
             `${process.env.REACT_APP_API_URL_AUTH}api/login`,
@@ -30,22 +30,21 @@ const Login = ({setPage}) => {
               body: JSON.stringify(values),
             }
           );
-    
+      
           const result = await response.json();
-
-          console.log(result);
-
-          localStorage.setItem("user", JSON.stringify(result));
-
+      
           if (response.ok) {
-              navigate("/login");
+            localStorage.setItem("user", JSON.stringify(result.user));
+            toast.success(result.message);
+            navigate("/dashboard"); // Redirect to dashboard or any other page
           } else {
-            toast.error(result.error);
+            toast.error(result.message);
           }
         } catch (error) {
-          toast.error("Error:", error);
+          toast.error("An error occurred: " + error.message);
         }
       };
+      
 
   return (
     <Formik

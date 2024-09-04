@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
 import crickstat from "../assets/crickstatLogoBlackBg.svg";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"))
   const [page, setPage] = useState("");
-
   const location = useLocation();
+
+  const logOut = ()=>{
+    localStorage.removeItem("user");
+    navigate('/register')
+  }
 
   //setting up the page type.
   useEffect(() => {
@@ -87,9 +93,9 @@ const Sidebar = () => {
 
         
       </div>
-      <button className="text-white  bg-black w-[8rem] h-[3rem] rounded-[10px] border self-end">
+     {user && <button className="text-white  bg-black w-[8rem] h-[3rem] rounded-[10px] border self-end" onClick={logOut}>
           Log out
-        </button>
+        </button>}
     </div>
   );
 };

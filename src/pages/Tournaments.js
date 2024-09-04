@@ -4,6 +4,7 @@ import MyTournaments from "../components/Tournaments/MyTournaments";
 import CreateTournamentModal from "../components/Modal/CreateTournamentModal";
 
 const Tournaments = () => {
+  const user = JSON.parse(localStorage.getItem("user"))
   const [type, setType] = useState("all");
   const [createTournamentModal, setCreateTournamentModal] = useState("false");
 
@@ -19,18 +20,18 @@ const Tournaments = () => {
           >
             All Tournaments
           </button>
-          <button
+          {user && user.role === "ADMIN" && <button
             onClick={() => setType("my")}
             className={`p-[0.5rem]  ${
               type === "my" ? "text-[#FF730D]" : "text-white"
             } rounded-[10px]`}
           >
             My Tournaments
-          </button>
+          </button>}
         </div>
-        <button onClick={()=>setCreateTournamentModal("true")} className=" p-[0.8rem] font-bold rounded-[10px] bg-[#434343] text-white">
+       {user && user.role === "ADMIN" && <button onClick={()=>setCreateTournamentModal("true")} className=" p-[0.8rem] font-bold rounded-[10px] bg-[#434343] text-white">
           Create Tournament
-        </button>
+        </button>}
       </div>
 
       {type === "all" && <AllTournaments />}

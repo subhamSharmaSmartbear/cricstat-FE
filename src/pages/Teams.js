@@ -7,9 +7,11 @@ import AllTeams from "../components/Teams/AllTeams";
 import CreateTeamModal from "../components/Modal/CreateTeamModal";
 
 const Teams = () => {
+  const user = JSON.parse(localStorage.getItem("user"))
+
   const [type, setType] = useState("all");
   const [createTeamModal, setCreateTeamModal] = useState("false");
-  
+
 
   
 
@@ -23,21 +25,21 @@ const Teams = () => {
           >
             All teams
           </button>
-          <button
+          {user && user.role === "COACH" && <button
             onClick={() => setType("my")}
             className={`${type === "my" && "text-[#FF730D]"}`}
           >
             My team
-          </button>
+          </button>}
         </div>
-        {type === "all" && (
-          <button
+        {type === "all" && 
+          user && user.role === "COACH" && <button
             className=" p-[0.8rem] font-bold rounded-[10px] bg-[#434343]"
             onClick={() => setCreateTeamModal("true")}
           >
             Create Team
-          </button>
-        )}
+          </button>}
+        
       </div>
       {type === "all" && <AllTeams />}
       {type === "my" && <MyTeams />}

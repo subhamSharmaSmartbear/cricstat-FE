@@ -5,12 +5,19 @@ import { useNavigate } from "react-router-dom";
 const Header = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  // const [imageUrl, setImageUrl] = useState(null);
   const [dropDown, setDropDown] = useState(false);
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     setUser(storedUser);
+
+    // const constructedUrl = `data:image/png;base64,${storedUser.profilePicture}`;
+    // setImageUrl(constructedUrl);
+    // console.log(constructedUrl);
     
+    
+    // setImageUrl(storedUser.profilePicture)
   }, []);
 
   console.log(user);
@@ -27,13 +34,10 @@ const Header = () => {
         </button>
       )}
       {user && (
-        <div className="w-[8rem] max-w-[10rem] flex items-center gap-[0.5rem] justify-center h-[3rem] bg-black rounded-[10px] px-[0.5rem] relative">
+        <div className=" max-w-[10rem] flex items-center gap-[0.5rem] justify-center h-[3rem] bg-black rounded-[10px] px-[0.5rem] relative">
           <span className="text-white  bg-black h-[100%] rounded-[10px] truncate w-[100%] flex items-center px-[0.5rem]">
             {user.username}{" "}
           </span>{" "}
-          <div className="w-[0.1rem] h-[80%] bg-white"></div>
-          <button className="text-white font-extrabold" onClick={()=>setDropDown(!dropDown)} >V</button>
-          {dropDown && <div onBlur={()=>setDropDown(false)} className="absolute top-[3.4rem] right-0 border h-[3rem] w-[10rem] rounded-[10px] bg-black text-white flex items-center justify-center"> <button onClick={()=>{ return navigate("/edit")}}>Edit profile </button> </div>}
         </div>
       )}
     </div>

@@ -7,6 +7,7 @@ import Group2 from "../components/Tournament/Group2";
 import Finals from "../components/Tournament/Finals";
 
 const Tournament = () => {
+  const user = JSON.parse(localStorage.getItem("user"))
   const { id } = useParams();
   const [type, setType] = useState("Group1");
   return (
@@ -21,9 +22,7 @@ const Tournament = () => {
           >
             Back
           </Link>
-          <button className="px-[1rem] py-[0.5rem] rounded-[10px]  bg-[#434343]">
-            Manage Team
-          </button>
+          
         </div>
         <div className="w-[100%]  h-[20%] flex justify-between gap-[1rem] ">
           <div className="w-[20%] h-[100%] ">
@@ -40,9 +39,9 @@ const Tournament = () => {
           </div>
           <div className="w-[20%] h-[100%]  font-extralight text-white flex flex-col  items-start gap-[1rem]">
             <span className="font-bold">Admin : BCCI</span>
-            <button className=" w-[5rem] px-[1rem] py-[0.5rem] rounded-[10px] font-bold bg-[#434343]">
+            {user && user.role === "ADMIN" && <button className=" w-[5rem] px-[1rem] py-[0.5rem] rounded-[10px] font-bold bg-[#434343]">
               Start
-            </button>
+            </button>}
           </div>
         </div>
         <div className="w-[90%] h-[0.3rem]  bg-[#434343] rounded-[10px]"></div>
