@@ -5,19 +5,11 @@ import { useNavigate } from "react-router-dom";
 const Header = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
-  // const [imageUrl, setImageUrl] = useState(null);
   const [dropDown, setDropDown] = useState(false);
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     setUser(storedUser);
-
-    // const constructedUrl = `data:image/png;base64,${storedUser.profilePicture}`;
-    // setImageUrl(constructedUrl);
-    // console.log(constructedUrl);
-    
-    
-    // setImageUrl(storedUser.profilePicture)
   }, []);
 
   console.log(user);
