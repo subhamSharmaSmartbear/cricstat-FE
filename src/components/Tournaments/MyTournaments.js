@@ -1,11 +1,12 @@
 import React from "react";
 import mi from "../../assets/mi.svg";
 import kkr from "../../assets/kkr.svg";
+import { Link } from "react-router-dom";
 
 const MyTournaments = () => {
   return (
     <div className=" rounded-[10px] w-[100%] bg-black h-[90%] p-[2rem] flex flex-col gap-[1rem] scrollable-content overflow-y-scroll custom-scrollbar">
-      <div className="w-[100%] h-[12vh] mt-[1.5rem] rounded-[10px]  flex justify-between items-center p-[0.5rem] border-b-[0.5px]">
+      <Link to={"/tournament/5"} className="w-[100%] h-[12vh] mt-[1.5rem] rounded-[10px]  flex justify-between items-center p-[0.5rem] border-b-[0.5px]">
         <div className="w-[49%] h-[100%] flex flex-col justify-between">
           <div className="w-[100%] h-[20%]  flex items-center gap-[0.5rem]">
             <span className="text-[#14FF72] font-semibold text-[18px]  animate-pulse">
@@ -49,7 +50,7 @@ const MyTournaments = () => {
             <div className="w-[15%] boder text-white">185/8 (20)</div>
           </div>
         </div>
-      </div>
+      </Link>
       <div className="w-[100%] h-[12vh] mt-[1.5rem] rounded-[10px]  flex justify-between items-center p-[0.5rem] border-b-[0.5px]">
         <div className="w-[49%] h-[100%] flex flex-col justify-between">
           <div className="w-[100%] h-[20%]  flex items-center gap-[0.5rem]">

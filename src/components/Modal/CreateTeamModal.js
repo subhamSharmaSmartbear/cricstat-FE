@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect,useState } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Select from "react-dropdown-select";
@@ -280,26 +281,58 @@ const CreateTeamModal = ({setCreateTeamModal}) => {
     },
   ];
 
+  const [allPlayers, setAllPlayers] = useState(null);
+  const [showError, setShowError] = useState(false); // To track error display
+
+  useEffect(() => {
+    const getAllPlayers = async (values) => {
+      console.log(values);
+
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_API_URL_AUTH}api/players/all`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(values),
+          }
+        );
+
+        if(response.ok){
+          const result = await response.json();
+          setAllPlayers(result);
+          console.log(result);
+          
+        }
+
+       
+
+        
+        
+      } catch (error) {
+        // toast.error("An error occurred: " + error.message);
+      }
+    };
+
+    getAllPlayers();
+
+    const errorTimeout = setTimeout(() => {
+      if (!allPlayers) {
+        setShowError(true);
+      }
+    }, 500);
+
+    return () => clearTimeout(errorTimeout);
+  }, []);
+
   const schema = Yup.object().shape({
     name: Yup.string().required("Name is required"),
     players15: Yup.array().required("Players is a required field"),
     players11: Yup.array().required("Players is a required field"),
   });
 
-//   const handleChangePlayers = (values,setFieldValue) => {
-    
-//     const indiaPlayersCount = values.filter(player => player.value.country !== "India").length;
-
-//     console.log(values);
-    
-//     console.log(indiaPlayersCount);
-    
-//     if (indiaPlayersCount > 5) {
-//         alert("You can't select more than 5 players from India.");
-//     } else {
-//         setFieldValue("player15",values);
-//     }
-// };
   return (
     <div className="w-[100vw] h-[100vh] absolute border bg-[#D9D9D9] top-0 left-0 right-0 bottom-0 bg-opacity-80 flex items-center justify-center">
       <Formik
