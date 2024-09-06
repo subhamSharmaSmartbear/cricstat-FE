@@ -44,7 +44,7 @@ const Players = () => {
 
     // Cleanup timeout on component unmount
     return () => clearTimeout(errorTimeout);
-  }, [allPlayers]);
+  }, []);
 
   return (
     <div className="rounded-[10px] w-[100%] bg-black h-[100%] flex flex-wrap -mx-2 gap-[1rem] justify-start overflow-y-scroll  scrollable-content custom-scrollbar p-[3rem]">
