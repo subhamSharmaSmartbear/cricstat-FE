@@ -1,286 +1,14 @@
 import React from "react";
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Select from "react-dropdown-select";
+import toast from "react-hot-toast";
 
-const CreateTeamModal = ({setCreateTeamModal}) => {
+const CreateTeamModal = ({ setCreateTeamModal }) => {
+  const user = JSON.parse(localStorage.getItem("user"));
 
-  const coachCountry = "India";
-  
-  const players15 = [
-    {
-      label: "Plyer A ",
-      value: {
-        id: 1,
-        name: "Player A",
-        dateOfBirth: "1990-01-15",
-        specialization: "Batter",
-        gender: "Male",
-        country: "Australia",
-        playedMatches: 0,
-        runs: 0,
-        highScore: 0,
-        strikeRate: 0.0,
-        numberOf50s: 0,
-        numberOf100s: 0,
-        profilePicture: null,
-      },
-    },
-    {
-      label: "Player C",
-      value: {
-        id: 3,
-        name: "Player C",
-        dateOfBirth: "1992-03-17",
-        specialization: "All-Rounder",
-        gender: "Male",
-        country: "Australia",
-        playedMatches: 0,
-        runs: 0,
-        highScore: 0,
-        strikeRate: 0.0,
-        numberOf50s: 0,
-        numberOf100s: 0,
-        profilePicture: null,
-      },
-    },
-    {
-      label: "Player D",
-      value: {
-        id: 4,
-        name: "Player D",
-        dateOfBirth: "1993-04-18",
-        specialization: "Batter",
-        gender: "Female",
-        country: "Australia",
-        playedMatches: 0,
-        runs: 0,
-        highScore: 0,
-        strikeRate: 0.0,
-        numberOf50s: 0,
-        numberOf100s: 0,
-        profilePicture: null,
-      },
-    },
-    {
-      label: "Player E",
-      value: {
-        id: 5,
-        name: "Player E",
-        dateOfBirth: "1994-05-19",
-        specialization: "Bowler",
-        gender: "Male",
-        country: "Australia",
-        playedMatches: 0,
-        runs: 0,
-        highScore: 0,
-        strikeRate: 0.0,
-        numberOf50s: 0,
-        numberOf100s: 0,
-        profilePicture: null,
-      },
-    },
-    {
-      label: "Player F",
-      value: {
-        id: 6,
-        name: "Player F",
-        dateOfBirth: "1995-06-20",
-        specialization: "All-Rounder",
-        gender: "Female",
-        country: "Australia",
-        playedMatches: 0,
-        runs: 0,
-        highScore: 0,
-        strikeRate: 0.0,
-        numberOf50s: 0,
-        numberOf100s: 0,
-        profilePicture: null,
-      },
-    },
-    {
-      label: "Player G",
-      value: {
-        id: 7,
-        name: "Player G",
-        dateOfBirth: "1996-07-21",
-        specialization: "Batter",
-        gender: "Male",
-        country: "Australia",
-        playedMatches: 0,
-        runs: 0,
-        highScore: 0,
-        strikeRate: 0.0,
-        numberOf50s: 0,
-        numberOf100s: 0,
-        profilePicture: null,
-      },
-    },
-    {
-      label: "Player H",
-      value: {
-        id: 8,
-        name: "Player H",
-        dateOfBirth: "1997-08-22",
-        specialization: "Bowler",
-        gender: "Female",
-        country: "Australia",
-        playedMatches: 0,
-        runs: 0,
-        highScore: 0,
-        strikeRate: 0.0,
-        numberOf50s: 0,
-        numberOf100s: 0,
-        profilePicture: null,
-      },
-    },
-    {
-      label: "Player I",
-      value: {
-        id: 9,
-        name: "Player I",
-        dateOfBirth: "1998-09-23",
-        specialization: "All-Rounder",
-        gender: "Male",
-        country: "Australia",
-        playedMatches: 0,
-        runs: 0,
-        highScore: 0,
-        strikeRate: 0.0,
-        numberOf50s: 0,
-        numberOf100s: 0,
-        profilePicture: null,
-      },
-    },
-    {
-      label: "Player J",
-      value: {
-        id: 10,
-        name: "Player J",
-        dateOfBirth: "1999-10-24",
-        specialization: "Batter",
-        gender: "Female",
-        country: "Australia",
-        playedMatches: 0,
-        runs: 0,
-        highScore: 0,
-        strikeRate: 0.0,
-        numberOf50s: 0,
-        numberOf100s: 0,
-        profilePicture: null,
-      },
-    },
-    {
-      label: "Player K",
-      value: {
-        id: 11,
-        name: "Player K",
-        dateOfBirth: "2000-11-25",
-        specialization: "Bowler",
-        gender: "Male",
-        country: "Australia",
-        playedMatches: 0,
-        runs: 0,
-        highScore: 0,
-        strikeRate: 0.0,
-        numberOf50s: 0,
-        numberOf100s: 0,
-        profilePicture: null,
-      },
-    },
-    {
-      label: "Player L",
-      value: {
-        id: 12,
-        name: "Player L",
-        dateOfBirth: "1985-01-05",
-        specialization: "Batter",
-        gender: "Male",
-        country: "India",
-        playedMatches: 0,
-        runs: 0,
-        highScore: 0,
-        strikeRate: 0.0,
-        numberOf50s: 0,
-        numberOf100s: 0,
-        profilePicture: null,
-      },
-    },
-    {
-      label: "Player M",
-      value: {
-        id: 13,
-        name: "Player M",
-        dateOfBirth: "1986-02-06",
-        specialization: "Bowler",
-        gender: "Female",
-        country: "India",
-        playedMatches: 0,
-        runs: 0,
-        highScore: 0,
-        strikeRate: 0.0,
-        numberOf50s: 0,
-        numberOf100s: 0,
-        profilePicture: null,
-      },
-    },
-    {
-      label: "Player N",
-      value: {
-        id: 14,
-        name: "Player N",
-        dateOfBirth: "1987-03-07",
-        specialization: "All-Rounder",
-        gender: "Male",
-        country: "India",
-        playedMatches: 0,
-        runs: 0,
-        highScore: 0,
-        strikeRate: 0.0,
-        numberOf50s: 0,
-        numberOf100s: 0,
-        profilePicture: null,
-      },
-    },
-    {
-      label: "Player O",
-      value: {
-        id: 15,
-        name: "Player O",
-        dateOfBirth: "1988-04-08",
-        specialization: "Batter",
-        gender: "Female",
-        country: "India",
-        playedMatches: 0,
-        runs: 0,
-        highScore: 0,
-        strikeRate: 0.0,
-        numberOf50s: 0,
-        numberOf100s: 0,
-        profilePicture: null,
-      },
-    },
-    {
-      label: "Player P",
-      value: {
-        id: 16,
-        name: "Player P",
-        dateOfBirth: "1989-05-09",
-        specialization: "Bowler",
-        gender: "Male",
-        country: "India",
-        playedMatches: 0,
-        runs: 0,
-        highScore: 0,
-        strikeRate: 0.0,
-        numberOf50s: 0,
-        numberOf100s: 0,
-        profilePicture: null,
-      },
-    },
-  ];
-
+  const [image, setImage] = useState("");
   const [allPlayers, setAllPlayers] = useState(null);
   const [showError, setShowError] = useState(false); // To track error display
 
@@ -290,7 +18,7 @@ const CreateTeamModal = ({setCreateTeamModal}) => {
 
       try {
         const response = await fetch(
-          `${process.env.REACT_APP_API_URL_AUTH}api/players/all`,
+          `${process.env.REACT_APP_API_URL_AUTH}api/players/no-team`,
           {
             method: "GET",
             headers: {
@@ -300,17 +28,11 @@ const CreateTeamModal = ({setCreateTeamModal}) => {
           }
         );
 
-        if(response.ok){
+        if (response.ok) {
           const result = await response.json();
           setAllPlayers(result);
           console.log(result);
-          
         }
-
-       
-
-        
-        
       } catch (error) {
         // toast.error("An error occurred: " + error.message);
       }
@@ -318,56 +40,104 @@ const CreateTeamModal = ({setCreateTeamModal}) => {
 
     getAllPlayers();
 
+    // Set a timeout to display the error after 2 seconds if allPlayers is null
     const errorTimeout = setTimeout(() => {
       if (!allPlayers) {
         setShowError(true);
       }
     }, 500);
 
+    // Cleanup timeout on component unmount
     return () => clearTimeout(errorTimeout);
   }, []);
+
+  const handleSubmit = async (values) => {
+    const players15 = values.players15;
+    const player15Count = players15.filter(
+      (player) => player.value.country !== user.country
+    ).length;
+
+    if (player15Count > 5) {
+      toast.error("More than 5 overseas players in a team is not allowed.");
+      return;
+    } else if (players15.length !== 15) {
+      toast.error("Please add 15 players in the team.");
+      return;
+    }
+
+    const player = values.players15.map((player)=>player.value)
+    // console.log(player);
+    
+
+    values = {
+      ...values,
+      country: user.country,
+      teamCaptain: values.teamCaptain[0].value.name,
+      coach: user.name,
+      totalPoints: 0,
+      players:player,
+    };
+
+    console.log(values);
+
+    const formData = new FormData();
+    for (let value in values) formData.append(value, values[value]);
+
+    const data = new FormData();
+    data.append("file", values.icon);
+    data.append("upload_preset", "twinster");
+    data.append("cloud_name", "dd2nvofv0");
+
+    try {
+      await fetch("https://api.cloudinary.com/v1_1/dd2nvofv0/image/upload", {
+        method: "POST",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then(async (data) => {
+          setImage(data.url);
+          
+          const response = await fetch(
+            `${process.env.REACT_APP_API_URL_AUTH}api/teams/create`,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ ...values, icon: data.url }),
+            }
+          );
+          // const result = await response.json();
+          // console.log(response);
+          
+          
+          // console.log(result);
+          
+          if(response.ok){
+            const responseData = await response.json();
+            toast.success(responseData.message);
+            // setTimeout(() => setCreateTeamModal("false"), 2000);
+          }else{
+            toast.error("oni")
+          }
+
+        });
+    } catch (error) {
+      toast.error( error.message);
+    }
+
+    console.log(values);
+  };
 
   const schema = Yup.object().shape({
     name: Yup.string().required("Name is required"),
     players15: Yup.array().required("Players is a required field"),
-    players11: Yup.array().required("Players is a required field"),
   });
 
   return (
     <div className="w-[100vw] h-[100vh] absolute border bg-[#D9D9D9] top-0 left-0 right-0 bottom-0 bg-opacity-80 flex items-center justify-center">
       <Formik
         validationSchema={schema}
-        initialValues={{ name: "", players15: [], players11: [] }}
-        onSubmit={(values) => {
-         
-          //validating player 15 list.
-          const players15 = values.players15;
-          const player15Count = players15.filter(player => player.value.country !== "India").length;
-          if(player15Count > 5) {
-            alert("More than 5 overseas players in the team is not allowed.")
-            return
-          }
-          else if(player15Count !== 15){
-            alert("Please add 15 players in the team.")
-            return
-          }
-
-
-          //validating player 11 list.
-          const players11 = values.players11;
-          
-          const player11Count = players11.filter(player => player.country !== "India").length;
-          if(player11Count > 3) {
-            alert("More than 3 overseas players in playing 11 is not allowed.")
-            return
-          }
-          else if(player11Count !== 11){
-            alert("Please add 11 players in the playing 11.")
-            return
-          }
-          
-          console.log(values);
-        }}
+        initialValues={{ name: "", players15: [] }}
+        onSubmit={(values) => handleSubmit(values)}
       >
         {({
           values,
@@ -387,7 +157,7 @@ const CreateTeamModal = ({setCreateTeamModal}) => {
                 <span className="text-white font-bold text-[28px] text-center">
                   Create Team <br />{" "}
                   <span className="text-[14px] font-light">
-                    Coach - Gautam Gambhir
+                    Coach - {user.name}
                   </span>{" "}
                 </span>
 
@@ -404,120 +174,55 @@ const CreateTeamModal = ({setCreateTeamModal}) => {
                   <span className="text-white">Select 15 players</span>
                   <Select
                     className="bg-white text-gray"
-                    options={players15.map((player) => {
-                      return {
-                        label:
-                          player.label +
-                          " ( " +
-                          player.value.specialization +
-                          " | " +
-                          player.value.country +
-                          " )",
-                        value: player.value,
-                      };
-                    })}
-                    placeholder="Select 15 players"
-                    onChange={(values) => setFieldValue("players15",values)}
-                    multi
-                  />
-                  <span className="text-white">Select playing 11</span>
-                  <Select
-                    className="bg-white text-gray"
-                    options={values.players15.map((player) => {
-                      return {
-                        label: player.label,
-                        value: player.value,
-                      };
-                    })}
-                    name="players11"
-                    placeholder="Select playing 11"
-                    onChange={(value) =>
-                      setFieldValue(
-                        "players11",
-                        value.map((val) => val.value)
-                      )
+                    options={
+                      allPlayers != null &&
+                      allPlayers.map((player) => {
+                        return {
+                          label:
+                            player.name +
+                            " ( " +
+                            player.specialization +
+                            " | " +
+                            player.country +
+                            " )",
+                          value: player,
+                        };
+                      })
                     }
+                    placeholder="Select 15 players"
+                    onChange={(values) => setFieldValue("players15", values)}
                     multi
                   />
+
                   <span className="text-white">Select a captain</span>
                   <Select
                     className="bg-white text-gray"
-                    name="captain"
-                    options={values.players11.map((player) => {
+                    name="teamCaptain"
+                    options={values.players15.map((player) => {
                       return {
-                        label:
-                          player.name +
-                          " ( " +
-                          player.specialization +
-                          " | " +
-                          player.country +
-                          " )",
+                        label: player.label,
                         value: {
-                          id: player.id,
-                          name: player.name,
-                          dateOfBirth: player.dateOfBirth,
-                          specialization: player.specialization,
-                          gender: player.gender,
-                          country: player.country,
-                          playedMatches: player.playedMatches,
-                          runs: player.runs,
-                          highScore: player.highScore,
-                          strikeRate: player.strikeRate,
-                          numberOf50s: player.numberOf50s,
-                          numberOf100s: player.numberOf100s,
-                          profilePicture: player.profilePicture,
+                          name: player.value.name,
                         },
                       };
                     })}
                     placeholder="Select Captain"
-                    onChange={(value) => setFieldValue("captain", value)}
+                    onChange={(value) => setFieldValue("teamCaptain", value)}
                   />
-                  <span className="text-white">Select a wicket Keeper</span>
-                  <Select
-                    className="bg-white text-gray"
-                    name="wicketKeeper"
-                    options={values.players11.map((player) => {
-                      return {
-                        label:
-                          player.name +
-                          " ( " +
-                          player.specialization +
-                          " | " +
-                          player.country +
-                          " )",
-                        value: {
-                          id: player.id,
-                          name: player.name,
-                          dateOfBirth: player.dateOfBirth,
-                          specialization: player.specialization,
-                          gender: player.gender,
-                          country: player.country,
-                          playedMatches: player.playedMatches,
-                          runs: player.runs,
-                          highScore: player.highScore,
-                          strikeRate: player.strikeRate,
-                          numberOf50s: player.numberOf50s,
-                          numberOf100s: player.numberOf100s,
-                          profilePicture: player.profilePicture,
-                        },
-                      };
-                    })}
-                    placeholder="Select Wicket Keeper"
-                    onChange={(value) => setFieldValue("wicketKeeper", value)}
-                  />
+
                   <span className="text-white">Add picture</span>
                   <input
-                      type="file"
-                      name="photo"
-                      accept="image/*"
-                      required
-                      onChange={(e) =>
-                        setFieldValue("photo", e.currentTarget.files[0])
-                      }
-                    />
-                    {
-                        values.photo && <span className='text-white'>{values.photo.name}</span>
+                    type="file"
+                    name="icon"
+                    accept="image/*"
+                    required
+                    onChange={(e) =>
+                      setFieldValue("icon", e.currentTarget.files[0])
                     }
+                  />
+                  {values.icon && (
+                    <span className="text-white">{values.icon.name}</span>
+                  )}
 
                   <button
                     className="text-white justify-self-end border w-[10rem] p-[0.5rem]"
