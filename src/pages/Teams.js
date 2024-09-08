@@ -1,17 +1,18 @@
 import React from "react";
 
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import MyTeams from "../components/Teams/MyTeams";
 import AllTeams from "../components/Teams/AllTeams";
 
 import CreateTeamModal from "../components/Modal/CreateTeamModal";
+import toast from "react-hot-toast";
 
 const Teams = () => {
   const user = JSON.parse(localStorage.getItem("user"))
 
   const [type, setType] = useState("all");
   const [createTeamModal, setCreateTeamModal] = useState("false");
-
+  
 
   
 

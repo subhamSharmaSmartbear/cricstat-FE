@@ -47,7 +47,7 @@ const Players = () => {
   }, []);
 
   return (
-    <div className="rounded-[10px] w-[100%] bg-black h-[100%] flex flex-wrap -mx-2 gap-[5rem] justify-start overflow-y-scroll  scrollable-content custom-scrollbar p-[3rem]">
+    <div className="rounded-[10px] w-[100%] bg-black h-[100%] flex flex-wrap -mx-2 gap-[2rem] justify-start overflow-y-scroll  scrollable-content custom-scrollbar p-[3rem]">
       {allPlayers &&
         allPlayers.map((player) => (
           <Link

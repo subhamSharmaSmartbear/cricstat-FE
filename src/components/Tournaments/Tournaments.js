@@ -4,7 +4,7 @@ import kkr from "../../assets/kkr.svg";
 
 const Tournaments = () => {
   return (
-    <div className="w-[100%]  h-[60%] flex flex-col  justify-between overflow-y-scroll  scrollable-content custom-scrollbar  ">
+    <div className="w-[100%]  h-[70%] flex flex-col  justify-between overflow-y-scroll  scrollable-content custom-scrollbar  ">
       <div className="w-[100%] h-[12vh] mt-[1.5rem] rounded-[10px]  flex justify-between items-center p-[0.5rem] border-b-[0.5px]">
         <div className="w-[49%] h-[100%] flex flex-col justify-between">
           <div className="w-[100%] h-[20%]  flex items-center gap-[0.5rem]">

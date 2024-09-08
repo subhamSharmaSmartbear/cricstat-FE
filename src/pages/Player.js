@@ -43,11 +43,11 @@ const Player = () => {
       if (!player) {
         setShowError(true);
       }
-    }, 2000);
+    }, 500);
 
     // Cleanup timeout on component unmount
     return () => clearTimeout(errorTimeout);
-  }, [player, id]);
+  }, []);
 
   return (
     <div className="rounded-[10px] w-[100%] bg-black h-[100%] px-[2rem] flex flex-col gap-[1rem]">
