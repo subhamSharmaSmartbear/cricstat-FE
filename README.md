@@ -8,27 +8,43 @@ CricStat is a React-based web application designed to manage and display cricket
 
 Below is the structure of the project to help navigate through the codebase.
 ```
+CRICSTAT-FE/
 │
-├── node_modules/          # All node modules for dependencies
+├── node_modules/
 ├── public/
-│   └── assets/            # Public assets like images, icons, etc.
 │
-├── src/                   # Main source folder for the application
-│   ├── components/        # Reusable UI components for the app
+├── src/
+│   ├── assets/
+│   │   ├── airplane.svg
+│   │   ├── cricstatLogo.png
+│   │   ├── cricstatLogo.svg
+│   │   ├── cricstatLogoBig.svg
+│   │   ├── cricstatLogoBlackBg.svg
+│   │   ├── cricstatLogoNoBG.png
+│   │   ├── dewald.svg
+│   │   ├── fourRuns.svg
+│   │   ├── ipl.png
+│   │   ├── kkr.svg
+│   │   ├── mi.svg
+│   │   ├── noBall.png
+│   │   ├── out.gif
+│   │   ├── rohitSharma.svg
+│   │   ├── sixRuns.svg
+│   │   ├── trophy.png
+│   │   ├── wicket.png
+│   │   └── wideBall.png
+│   │
+│   ├── components/
 │   │   ├── Matches/
 │   │   │   ├── LiveMatches.js
 │   │   │   ├── Matches.js
 │   │   │   ├── PastMatches.js
-│   │   │   ├── UpcomingMatches.js
-│   │   │   ├── LiveMatches.stories.jsx
-│   │   │
-│   │   ├── Modal/         # Modals for various functionalities
+│   │   │   └── UpcomingMatches.js
+│   │   ├── Modal/
 │   │   │   ├── BallScoreModal.js
 │   │   │   ├── CreateTeamModal.js
-│   │   │   ├── CreateTournamentModal.js
-│   │   │   ├── ManageTeamModal.js
-│   │   │
-│   │   ├── Stats/         # Components for displaying statistics
+│   │   │   └── ManageTeamModal.js
+│   │   ├── Stats/
 │   │   │   ├── BallingStats.js
 │   │   │   ├── BallingTable.js
 │   │   │   ├── BattingStats.js
@@ -36,50 +52,54 @@ Below is the structure of the project to help navigate through the codebase.
 │   │   │   ├── PlayerBallingTable.js
 │   │   │   ├── PlayerBattingTable.js
 │   │   │   └── Statistics.js
-│   │   │
-│   │   ├── Teams/         # Components related to teams
+│   │   ├── Teams/
 │   │   │   ├── AllTeams.js
-│   │   │   ├── MyTeams.js
-│   │   │   ├── Squad.js
-│   │   │   ├── MyTeams.stories.jsx
-│   │   │
-│   │   ├── Tournament/    # Components related to tournaments
+│   │   │   └── MyTeams.js
+│   │   │       └── MyTeams.stories.jsx
+│   │   ├── Squad.js
+│   │   ├── Tournament/
 │   │   │   ├── Finals.js
 │   │   │   ├── Group1.js
 │   │   │   ├── Group2.js
+│   │   ├── Tournaments/
 │   │   │   ├── AllTournaments.js
 │   │   │   ├── MyTournaments.js
-│   │   │   ├── Tournaments.js
-│   │   │   ├── MyTournaments.stories.jsx
-│   │   │
-│   │   └── Utilities/     # Utility components for reusable code
+│   │   │   └── Tournaments.js
+│   │   └── Utilities/
+│   │       ├── AnimatedText.js
 │   │       ├── CurrentDateTime.js
 │   │       ├── CustomSelect.tsx
-│   │       └── Error.js
+│   │       ├── Error.js
+│   │       ├── Header.js
+│   │       ├── Inings.js
+│   │       └── Sidebar.js
 │   │
-│   ├── pages/             # Page components for different routes
+│   ├── pages/
 │   │   ├── Edit.js
-│   │   ├── Login.js
+│   │   ├── login.js
 │   │   ├── Match.js
 │   │   ├── Matches.js
 │   │   ├── Player.js
 │   │   ├── Players.js
+│   │   ├── RealTimeUpdates.js
 │   │   ├── Register.js
 │   │   ├── Team.js
 │   │   ├── Teams.js
 │   │   ├── Tournament.js
-│   │   ├── Tournaments.js
+│   │   └── Tournaments.js
 │   │
-│   ├── App.js             # Main app component
-│   ├── index.js           # Main entry point for the React app
-│   └── index.css          # Global CSS file
+│   ├── App.js
+│   ├── index.css
+│   ├── index.js
+│   └── logo.svg
 │
-├── .env                   # Environment variables
-├── .gitignore             # Files and directories to ignore in Git
-├── package.json           # Project metadata and dependencies
-├── package-lock.json      # Lockfile for dependencies
-├── tailwind.config.js     # Configuration for Tailwind CSS
-└── README.md              # Project documentation
+├── .env
+├── .gitignore
+├── package-lock.json
+├── package.json
+├── tailwind.config.js
+└── README.md
+
 ```
 
 
