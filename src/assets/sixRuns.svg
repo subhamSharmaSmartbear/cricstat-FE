@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Ribbons -->
+  <path d="M10 10 Q30 20 10 30 Q30 40 10 50" stroke="#FF0000" stroke-width="2" fill="none">
+    <animate attributeName="d" values="M10 10 Q30 20 10 30 Q30 40 10 50; M10 10 Q30 25 10 35 Q30 45 10 55; M10 10 Q30 20 10 30 Q30 40 10 50" dur="1s" repeatCount="indefinite"/>
+  </path>
+  <path d="M90 10 Q70 20 90 30 Q70 40 90 50" stroke="#FF0000" stroke-width="2" fill="none">
+    <animate attributeName="d" values="M90 10 Q70 20 90 30 Q70 40 90 50; M90 10 Q70 25 90 35 Q70 45 90 55; M90 10 Q70 20 90 30 Q70 40 90 50" dur="1s" repeatCount="indefinite"/>
+  </path>
+
+  <!-- Number 6 Text -->
+  <text x="50%" y="50%" font-size="40" font-weight="bold" fill="#FF0000" text-anchor="middle" dominant-baseline="middle">
+    6
+    <animate attributeName="font-size" from="10" to="40" dur="1s" fill="freeze"/>
+    <animate attributeName="opacity" from="0" to="1" dur="1s" fill="freeze"/>
+  </text>
+  
+  <!-- Glitter Effect -->
+  <circle cx="50" cy="20" r="2" fill="#FFFF00">
+    <animate attributeName="r" from="2" to="5" dur="0.5s" repeatCount="indefinite" keyTimes="0;0.5;1" values="2;5;2"/>
+    <animate attributeName="opacity" from="0" to="1" dur="0.5s" repeatCount="indefinite" keyTimes="0;0.5;1" values="0;1;0"/>
+  </circle>
+  <circle cx="30" cy="50" r="2" fill="#FFFF00">
+    <animate attributeName="r" from="2" to="5" dur="0.5s" repeatCount="indefinite" keyTimes="0;0.5;1" values="2;5;2"/>
+    <animate attributeName="opacity" from="0" to="1" dur="0.5s" repeatCount="indefinite" keyTimes="0;0.5;1" values="0;1;0"/>
+  </circle>
+  <circle cx="70" cy="80" r="2" fill="#FFFF00">
+    <animate attributeName="r" from="2" to="5" dur="0.5s" repeatCount="indefinite" keyTimes="0;0.5;1" values="2;5;2"/>
+    <animate attributeName="opacity" from="0" to="1" dur="0.5s" repeatCount="indefinite" keyTimes="0;0.5;1" values="0;1;0"/>
+  </circle>
+</svg>

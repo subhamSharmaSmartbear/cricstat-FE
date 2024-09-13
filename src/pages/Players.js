@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Error from "../components/Utilities/Error";
-import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
 
 const Players = () => {
   const [allPlayers, setAllPlayers] = useState(null);
@@ -50,14 +48,14 @@ const Players = () => {
     <div className="rounded-[10px] w-[100%] bg-black h-[100%] flex flex-wrap -mx-2 gap-[2rem] justify-start overflow-y-scroll  scrollable-content custom-scrollbar p-[3rem]">
       {allPlayers &&
         allPlayers.map((player) => (
-          <Link
+          <div
             key={player.id} // Adding key prop
-            to={`/player/${player.id}`} // Link to dynamic player id
+            
             className="w-[280px] h-[350px] bg-[#434343] justify-self-start rounded-[10px]"
           >
             <div className="w-[100%] h-[80%] ">
               <img
-                src={player.profilePicture}
+                src={"https://res.cloudinary.com/dd2nvofv0/image/upload/v1725960451/dgtxmftqcsrobcbkdxxm.png"}
                 className="w-[100%] h-[100%] object-cover"
                 alt="profile"
               />
@@ -66,7 +64,7 @@ const Players = () => {
               <span className="text-[22px] truncate">{player.name}</span>
               <span className="text-[#E0E0E0]">{player.specialization}</span>
             </div>
-          </Link>
+          </div>
         ))}
 
       {!allPlayers && showError && <Error />}

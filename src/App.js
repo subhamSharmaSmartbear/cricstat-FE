@@ -8,8 +8,6 @@ import Teams from "./pages/Teams";
 import Tournaments from "./pages/Tournaments";
 import Tournament from "./pages/Tournament";
 import Players from "./pages/Players";
-import Player from "./pages/Player";
-import Edit from "./pages/Edit"
 import Team from "./pages/Team";
 
 function App() {
@@ -25,12 +23,6 @@ function App() {
 }
 
 function DefaultContainer({ loader }) {
-  const user = true;
-
-
-
-
-
 
   return (
     <div className="w-[100vw] h-[100%] flex items-center  overflow-x-hidden">
@@ -39,7 +31,7 @@ function DefaultContainer({ loader }) {
         <Header />
         <div className="w-[100%] h-[90vh] overflow-auto">
           <Routes>
-            <Route path="/" element={<Navigate to="/matches" />} />
+            <Route path="/" element={<Navigate to="/teams" />} />
             <Route path="/matches" element={<Matches page={"matches"}/>} />
             <Route path="/match/:id" element={<Match page={"match"}/>} />
             <Route path="/teams" element={<Teams page={"teams"}/>} />
@@ -47,9 +39,6 @@ function DefaultContainer({ loader }) {
             <Route path="/tournaments" element={<Tournaments page={"tournaments"}/>} />
             <Route path="/tournament/:id" element={<Tournament page={"tournaments"}/>} />
             <Route path="/players" element={<Players page={"players"}/>} />
-            <Route path="/player/:id" element={<Player page={"player"}/>} />
-            <Route path="/edit" element={<Edit/>} />
-
             <Route path="*" element={<Navigate to="/matches" />} />
           </Routes>  
         </div>

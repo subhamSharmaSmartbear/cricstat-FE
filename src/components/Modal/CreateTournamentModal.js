@@ -1,81 +1,93 @@
-import React from 'react'
+import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Select from "react-dropdown-select";
+import toast from "react-hot-toast";
+import { json } from "react-router-dom";
 
-const CreateTournamentModal = ({setCreateTournamentModal}) => {
+const CreateTournamentModal = ({ setCreateTournamentModal }) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const interval = [
+    {
+      label: "4 Hours",
+      value: "PT4H",
+    },
+    {
+      label: "6 Hours",
+      value: "PT6H",
+    },
+    {
+      label: "8 Hours",
+      value: "PT8H",
+    },
+  ];
+
+  const schema = Yup.object().shape({
+    tournamentName: Yup.string(),
+    tournamentType: Yup.string(),
+  });
+  const tournamentTypeList = [
+    {
+      label: "T20",
+      value: "T20",
+    },
+  ];
 
 
+  //convert to required date format
+  function convertToDateTime(dateString, timeString = "12:00:00") {
+    // Create a new Date object from the input date string
+    const date = new Date(dateString);
 
-    const teams = [
-        {
-          "id": 1,
-          "name": "Team India"
-        },
-        {
-          "id": 12,
-          "name": "Team Pakistan"
-        },
-        {
-          "id": 13,
-          "name": "Team Australia"
-        },
-        {
-          "id": 14,
-          "name": "Team Afghanistan"
-        },
-        {
-          "id": 15,
-          "name": "Team pune"
-        },
-        {
-          "id": 16,
-          "name": "Team kota"
-        },
-        {
-          "id": 17,
-          "name": "Team kol"
-        },
-        {
-          "id": 18,
-          "name": "Team mum"
-        },
-        
-      ]
-      
-    
-      const schema = Yup.object().shape({
-        name: Yup.string(),
-        teams: Yup.array(),
-        tournamentType: Yup.string(),
-        date:Yup.string(),
-      });
-      const tournamentTypeList = [
-        {
-            label:"T20",
-            value:"T20"
-        },
-      ]
+    // Extract individual date components
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-based, so add 1
+    const day = String(date.getDate()).padStart(2, "0");
 
+    // Return the formatted date in the desired format with provided or default time
+    return `${year}-${month}-${day}T${timeString}`;
+  }
+
+
+  //function for creating the tournament
+  const CreateTournament = async (values) => {
+    console.log(values);
+
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL_GAME_ENGINE}api/admin/tournaments/create`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...values,
+            numberOfTeams: "6",
+            status: "PLANNED",
+            startDate:convertToDateTime(values.startDate)
+          }),
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        toast.success("Tournament Created !")
+        setCreateTournamentModal("false");
+      } else {
+        throw new Error("Error fetching teams");
+      }
+    } catch (error) {
+      toast.error("Error fetching teams");
+    }
+  };
 
   return (
     <div className="w-[100vw] h-[100vh] absolute border bg-[#D9D9D9] top-0 left-0 right-0 bottom-0 bg-opacity-80 flex items-center justify-center">
       <Formik
         validationSchema={schema}
-        initialValues={{ name: "", tournamentType:"",teams:[],date:"",photo:"" }}
-        onSubmit={(values) => {
-         
-          const teamsCount = values.teams.length;
-          
-          if(teamsCount !== 6) {
-            alert("Please add 6 teams in a tournament")
-            return
-          }
-
-          console.log(values);
-          
-          
-        }}
+        initialValues={{ tournamentName: "", tournamentType: "" }}
+        onSubmit={(values) => CreateTournament(values)}
       >
         {({
           values,
@@ -95,7 +107,7 @@ const CreateTournamentModal = ({setCreateTournamentModal}) => {
                 <span className="text-white font-bold text-[28px] text-center">
                   Create Tournament <br />{" "}
                   <span className="text-[14px] font-light">
-                    Admin - BCCI
+                    Admin - {user.username}
                   </span>{" "}
                 </span>
 
@@ -104,10 +116,19 @@ const CreateTournamentModal = ({setCreateTournamentModal}) => {
                   <input
                     placeholder="Enter tournament Name"
                     className="w-[100%] h-[2.5rem] rounded-[5px] px-[1rem]"
-                    value={values.name}
-                    onChange={(e)=>setFieldValue("name",e.target.value)
+                    value={values.tournamentName}
+                    onChange={(e) =>
+                      setFieldValue("tournamentName", e.target.value)
                     }
                     name="name"
+                  />
+                  <span className="text-white">Tournament Location</span>
+                  <input
+                    placeholder="Enter location "
+                    className="w-[100%] h-[2.5rem] rounded-[5px] px-[1rem]"
+                    value={values.location}
+                    onChange={(e) => setFieldValue("location", e.target.value)}
+                    name="location"
                   />
 
                   <span className="text-white">Tournament Type</span>
@@ -115,41 +136,27 @@ const CreateTournamentModal = ({setCreateTournamentModal}) => {
                     className="bg-white text-gray"
                     options={tournamentTypeList}
                     placeholder="Select Type"
-                    onChange={(values) => setFieldValue("tournamentType",values[0].value)
+                    onChange={(values) =>
+                      setFieldValue("tournamentType", values[0].value)
                     }
                   />
-                  <span className="text-white">Select 6 teams</span>
+
+                  <span className="text-white">Interval between matches</span>
                   <Select
                     className="bg-white text-gray"
-                    options={teams.map((team)=>{return {label:team.name,value:team.id}})}
-                    name="teams"
-                    placeholder="Select teams"
-                    onChange={(value) =>
-                      setFieldValue(
-                        "teams",
-                        value.map((val) => val.value)
-                      )
+                    options={interval}
+                    placeholder="Select hours"
+                    onChange={(values) =>
+                      setFieldValue("matchInterval", values[0].value)
                     }
-                    multi
                   />
+
                   <span className="text-white">Start date</span>
-                  <input type='date' className='p-[0.3rem] rounded-[3px]' onChange={(e)=>setFieldValue("date" ,e.target.value)
-                  }/>
-
-
-                  <span className="text-white">Add picture</span>
                   <input
-                      type="file"
-                      name="photo"
-                      accept="image/*"
-                      required
-                      onChange={(e) =>
-                        setFieldValue("photo", e.currentTarget.files[0])
-                      }
-                    />
-                    {
-                        values.photo && <span className='text-white'>{values.photo.name}</span>
-                    }
+                    type="date"
+                    className="p-[0.3rem] rounded-[3px]"
+                    onChange={(e) => setFieldValue("startDate", e.target.value)}
+                  />
 
                   <button
                     className="text-white justify-self-end border w-[10rem] p-[0.5rem]"
@@ -170,7 +177,7 @@ const CreateTournamentModal = ({setCreateTournamentModal}) => {
         )}
       </Formik>
     </div>
-  )
-}
+  );
+};
 
-export default CreateTournamentModal
+export default CreateTournamentModal;

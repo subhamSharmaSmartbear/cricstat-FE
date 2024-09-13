@@ -1,12 +1,40 @@
-import React from 'react'
-import mi from "../../assets/mi.svg"
-import kkr from "../../assets/kkr.svg"
-import { Link } from 'react-router-dom';
-const Group2 = ({groupMatches}) => {
+import React, { useState,useEffect } from 'react'
+import { Link, useParams } from 'react-router-dom'
+
+const Semifinal = () => {
+
+const [semiFinalMatches,setSemiFinalMatches] = useState(null);
+const {id} = useParams();
+
+
+    const getSemiFinalMatches = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_API_URL_GAME_ENGINE}api/admin/tournaments/semifinal/schedule-matches/${id}`,
+          { method: "GET", headers: { "Content-Type": "application/json" } }
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data);
+          
+          setSemiFinalMatches(data); // Store tournament dat
+         
+          
+        } else {
+          throw new Error("Error fetching tournaments");
+        }
+      } catch (error) {
+        // toast.error("Error fetching tournaments");
+      }
+    };
+
+ 
+
   return (
-    <div className="w-[100%]  h-[60%] flex flex-col  justify-between overflow-y-scroll  scrollable-content custom-scrollbar  ">
-      {groupMatches &&
-        groupMatches.map((match) => (
+    <div className="w-[100%]  h-[60%] flex flex-col  gap-[2rem] overflow-y-scroll items-center scrollable-content custom-scrollbar  ">
+        {/* <button onClick={getGroupMatches} className='text-white border w-[10rem] p-[1rem] rounded-[10px]'>Start Semi-final</button> */}
+      {semiFinalMatches && semiFinalMatches.map((match) => (
           <Link to={`/match/${match.matchId}`} className="w-[100%] h-[12vh] mt-[1.5rem] rounded-[10px]  flex justify-between items-center p-[0.5rem] border-b-[0.5px]">
             <div className="w-[49%] h-[100%] flex flex-col justify-between">
               <div className="w-[100%] h-[20%]  flex items-center gap-[0.5rem]">
@@ -30,6 +58,13 @@ const Group2 = ({groupMatches}) => {
             <div className="w-[49%] h-[100%]  flex justify-between flex-col items-center">
               <div className="w-[100%] h-[49%]  flex justify-between items-center">
                 <div className="w-[80%] h-[100%] flex gap-[0.5rem]">
+                  {/* <div className="w-[50px] h-[50px]">
+                    <img
+                      src={mi}
+                      alt="team_logo"
+                      className="w-[100%] h-[100%]"
+                    />
+                  </div> */}
                   <span className="text-white text-[20px]">Team A - {match.teamA}</span>
                 </div>
                 
@@ -49,10 +84,8 @@ const Group2 = ({groupMatches}) => {
             </div>
           </Link>
         ))}
-      
     </div>
-  );
-  
+  )
 }
 
-export default Group2
+export default Semifinal

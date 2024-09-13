@@ -1,11 +1,9 @@
 import React from "react";
 
-import { useState,useEffect } from "react";
-import MyTeams from "../components/Teams/MyTeams";
+import { useState } from "react";
 import AllTeams from "../components/Teams/AllTeams";
-
 import CreateTeamModal from "../components/Modal/CreateTeamModal";
-import toast from "react-hot-toast";
+
 
 const Teams = () => {
   const user = JSON.parse(localStorage.getItem("user"))
@@ -13,7 +11,6 @@ const Teams = () => {
   const [type, setType] = useState("all");
   const [createTeamModal, setCreateTeamModal] = useState("false");
   
-
   
 
   return (
@@ -26,12 +23,6 @@ const Teams = () => {
           >
             All teams
           </button>
-          {user && user.role === "COACH" && <button
-            onClick={() => setType("my")}
-            className={`${type === "my" && "text-[#FF730D]"}`}
-          >
-            My team
-          </button>}
         </div>
         {type === "all" && 
           user && user.role === "COACH" && <button
@@ -42,8 +33,8 @@ const Teams = () => {
           </button>}
         
       </div>
-      {type === "all" && <AllTeams />}
-      {type === "my" && <MyTeams />}
+      {type === "all" && <AllTeams createTeamModal={createTeamModal}/>}
+     
       {createTeamModal === "true" && (
         <CreateTeamModal setCreateTeamModal={setCreateTeamModal}/>
       )}

@@ -3,16 +3,16 @@ import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import Error from "../Utilities/Error";
 
-const AllTournaments = () => {
-  // Retrieve user details from localStorage
+const AllTournaments = ({createTournamentModal}) => {
+
+  //getting data for localstorage
   const user = JSON.parse(localStorage.getItem("user"));
 
   // State for storing tournament data and tracking registration status
   const [tournaments, setTournaments] = useState(null);
   const [registration, setRegistration] = useState(false);
-  const [showError, setShowError] = useState(false); // State for showing error
 
-  // Fetch all tournaments when the component loads or registration changes
+  //  get all tournaments .
   useEffect(() => {
     const getAllTournaments = async () => {
       try {
@@ -23,7 +23,8 @@ const AllTournaments = () => {
 
         if (response.ok) {
           const data = await response.json();
-          setTournaments(data); // Store tournament data
+
+          setTournaments(data.reverse()); 
         } else {
           throw new Error("Error fetching tournaments");
         }
@@ -35,15 +36,14 @@ const AllTournaments = () => {
     getAllTournaments();
 
     // Display error if no tournaments are fetched after a delay
-    const errorTimeout = setTimeout(() => {
-      if (!tournaments) setShowError(true);
-    }, 500);
+    
 
-    return () => clearTimeout(errorTimeout);
-  }, [registration]);
+  }, [registration, createTournamentModal]);
 
   // Function to register a team for a tournament
   const register = async (team, tournamentId) => {
+    
+    
     try {
       const response = await fetch(
         `${process.env.REACT_APP_API_URL_GAME_ENGINE}api/admin/tournaments/${tournamentId}/register`,
@@ -74,7 +74,14 @@ const AllTournaments = () => {
       );
 
       const teamData = await response.json();
-      if (teamData) register(teamData, tournamentId); // Register the team
+      const data = teamData;
+      delete data["coachId"]; 
+
+      console.log(data);
+      
+      console.log(teamData);
+      
+      if (teamData) register(data, tournamentId); // Register the team
     } catch (error) {
       toast.error("Error fetching teams");
     }
@@ -90,21 +97,21 @@ const AllTournaments = () => {
                 <span className={`${tournament.status === "ONGOING" ? "text-[#14FF72] animate-pulse" : "text-white"} font-semibold text-[18px]`}>
                   {tournament.status}
                 </span>
-                <span className="text-white font-medium text-[14px]">T20</span>
+                <span className="text-white font-medium text-[14px]">{tournament.tournamentType}</span>
               </div>
               <div className="w-[100%] h-[75%] flex flex-col justify-between">
-                <span className="truncate text-[24px] text-white font-medium">{tournament.name}</span>
+                <span className="truncate text-[24px] text-white font-medium">{tournament.tournamentName}</span>
                 <span className="text-[14px] text-white font-light">{tournament.location}</span>
               </div>
             </Link>
             <div className="w-[20%] h-[100%] text-white flex items-end justify-center flex-col gap-[0.8rem]">
               <span className="font-extralight">Already Registered Teams - {tournament.registeredTeamsCount}</span>
-              <button className="border w-[8rem] p-[0.5rem] rounded-[10px] z-[1000]" onClick={() => getTeam(tournament.tournamentDTOId)}>Register</button>
+               <button className={` border w-[8rem] p-[0.5rem] rounded-[10px] z-[1000]`} onClick={() => getTeam(tournament.tournamentDTOId)}>Register</button>
             </div>
             <div className="w-[0.1%] h-[90%] bg-[#434343]"></div>
           </div>
         ))}
-      {!tournaments && showError && <Error />} {/* Show error if no tournaments */}
+      
     </div>
   );
 };

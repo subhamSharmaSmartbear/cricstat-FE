@@ -1,101 +1,134 @@
-import React, { useState } from "react";
-import mi from "../assets/mi.svg";
-import kkr from "../assets/kkr.svg";
+import React, { useState, useEffect } from "react";
+import sixRuns from "../assets/sixRuns.svg";
+import fourRuns from "../assets/fourRuns.svg";
+import AnimatedText from "./Utilities/AnimatedText";
 
-import wicket from "../assets/wicket.png";
-import wideBall from "../assets/wideBall.png";
-import noBall from "../assets/noBall.png";
-import BallScoreModal from "./Modal/BallScoreModal";
+const Inings = ({
+  scorecard,
+  messages,
+  matchResult,
+  firstInningsEnd,
+  secondInningsEnd,
+  wickets
+}) => {
+  const [sixRun, setSixRun] = useState(false);
+  const [fourRun, setFourRun] = useState(false);
+  const [resultAnnounced, setResultAnnounced] = useState(false);
 
-const Inings = () => {
-    const [ballScore, setBallScore] = useState("false")
+  // Effect to handle the display of the sixRuns SVG
+  useEffect(() => {
+    if (scorecard.ballscore === 6) {
+      setSixRun(true);
+      const timer = setTimeout(() => {
+        setSixRun(false);
+      }, 1500);
+
+      // Cleanup timer on component unmount or before re-running effect
+      return () => clearTimeout(timer);
+    }
+    if (scorecard.ballscore === 4) {
+      setFourRun(true);
+      const timer = setTimeout(() => {
+        setFourRun(false);
+      }, 1500);
+
+      // Cleanup timer on component unmount or before re-running effect
+      return () => clearTimeout(timer);
+    }
+
+    if (matchResult !== "Match Result: Not yet decided") {
+      setResultAnnounced(true);
+
+      const timer = setTimeout(() => {
+        setResultAnnounced(false);
+      }, 2000);
+
+      // Cleanup timer on component unmount or before re-running effect
+      return () => clearTimeout(timer);
+    }
+  }, [scorecard.ballscore, matchResult]); // Dependency array to re-run effect on ballscore change
+
+  console.log(scorecard);
+  
+
+
   return (
-    <div className="w-[100%]  h-[60%] flex flex-col   overflow-y-scroll  scrollable-content custom-scrollbar  ">
-      <div className="w-[100%] h-[20%]  flex justify-between">
-        <div className="w-[48%] h-[100%]  flex gap-[0.5rem]">
-          <div className="w-[6rem]  h-[100%]">
-            <img
-              src={mi}
-              className="w-[100%] h-[100%] object-contain"
-              alt="logo"
-            />
+    <div className="w-[100%] h-[50%] flex flex-col">
+      <div className="w-[100%] h-[100%] flex justify-center flex-col gap-[0.5rem] text-white">
+        <p className="text-[32px]">Live updates</p>
+        <div className="text-[18px] w-[100%] font-bold h-[30%] flex items-center justify-center text-white justify-between bg-[#a04504]  p-[1rem] gap-[1rem] rounded-[10px] ">
+          <div className="w-[25%] h-[100%]  flex flex-col justify-between ">
+            <p className=" w-[100%] truncate">
+              {scorecard.battingTeam === "" && "batting team:"}
+              <span className=""> {scorecard.battingTeam}</span>
+            </p>
+            <p className=" w-[100%] truncate ">
+              bowling team:{" "}
+              <span className=""> {scorecard.bowlingTeam}</span>
+            </p>
           </div>
-          <div className="w-[90%] h-[100%]  flex">
-            <div className="w-[70%] h-[100%]  flex flex-col">
-              <span className="text-white font-bold text-[22px] w-[100%] truncate">
-                Mumbai Indians
+          <div className="w-[25%] h-[100%]  flex flex-col justify-between ">
+            <p className=" w-[100%] truncate">
+              striker: <span className="font-bold text-[22px]">{scorecard.striker}</span>
+            </p>
+            <p className=" w-[100%] truncate">
+              non-striker:{" "}
+              <span className="font-bold text-[22px]">{scorecard.nonStriker}</span>
+            </p>
+          </div>
+          <div className="w-[25%] h-[100%]  flex flex-col justify-between ">
+            <p className=" w-[100%] truncate ">
+              runs:{" "}
+              <span className="font-bold w-[100%] text-[22px]">
+                {scorecard.runs} 
               </span>
-              <span className="text-white font-light text-[16px]">
-                (Balling)
-              </span>
-            </div>
-            <div className="w-[30%] h-[100%]  text-white text-end">
-              Yet to bat
-            </div>
+             
+            </p>
+            <p className=" w-[100%] truncate">
+              overs: <span className="font-bold text-[22px]">{scorecard.overs} . {scorecard.balls}</span>
+            </p>
+          </div>
+          <div className="w-[25%] h-[100%]  flex flex-col justify-between ">
+            <p className=" w-[100%] truncate ">
+              bowler:{" "}
+              <span className="font-bold w-[100%] text-[22px]">{scorecard.bowler} </span>
+            </p>
           </div>
         </div>
-        <div className="w-[48%] h-[100%]  flex gap-[0.5rem]">
-          <div className="w-[6rem]  h-[100%]">
-            <img src={kkr} className="w-[100%] h-[100%] object-contain" />
+        <p className="text-[32px]">Results</p>
+        <div className="w-[100%] h-[20%] flex items-center justify-center text-white justify-between border-[2px] p-[1rem] gap-[1rem] rounded-[10px] border-[#434343]">
+          <div className="w-[30%] h-[100%]  flex flex-col justify-between ">
+            <p className=" w-[100%] truncate">
+              <span className="font-bold">{matchResult}</span>
+            </p>
           </div>
-          <div className="w-[90%] h-[100%]  flex">
-            <div className="w-[70%] h-[100%]  flex flex-col">
-              <span className="text-white font-bold text-[22px] w-[100%] truncate">
-                Kolkata Knight Riders
-              </span>
-              <span className="text-white font-light text-[16px]">
-                (Batting)
-              </span>
-            </div>
-            <div className="w-[30%] h-[100%]  text-white text-end">
-              185/5 (20)
-            </div>
+          <div className="w-[30%] h-[100%]  flex flex-col justify-between ">
+            <p className=" w-[100%] truncate">
+              <span className="font-bold">{firstInningsEnd}</span>
+            </p>
+          </div>
+          <div className="w-[30%] h-[100%]  flex flex-col justify-between ">
+            <p className=" w-[100%] truncate">
+              <span className="font-bold">{secondInningsEnd}</span>
+            </p>
           </div>
         </div>
-      </div>
-      <div className="w-[100%] h-[20%]  flex justify-between items-center">
-        <div className=" min-w-[50%] h-[100%]  flex flex-col">
-          <div className="w-[100%] h-[30%] ">
-            <span className="text-white">Over : 12 | Ball : 1</span>
-          </div>
-          <div className="w-[100%] h-[90%]  flex  py-[0.3rem]">
-            <div className="min-w-[10rem] border bg-white rounded-[10px] flex justify-around items-center gap-[1rem] px-[0.5rem]">
-              <div className="h-[70%] w-[2rem] border rounded-[100%] border-black border-[2px] flex items-center justify-center">
-                1
-              </div>
-              <div className="h-[70%] w-[2rem] border rounded-[100%] border-black border-[2px] flex items-center justify-center">
-                2
-              </div>
-              <div className="h-[70%] w-[2rem] border rounded-[100%] border-black border-[2px] flex items-center justify-center">
-                3
-              </div>
-              <div className="h-[70%] w-[2rem] border rounded-[100%] border-black border-[2px] flex items-center justify-center">
-                4
-              </div>
-              <div className="h-[70%] w-[2rem] border rounded-[100%] border-black border-[2px] flex items-center justify-center">
-                6
-              </div>
-              <div className="h-[70%] w-[2rem] border rounded-[100%] border-black border-[2px] flex items-center justify-center">
-                1
-              </div>
 
-              <div className="h-[70%] w-[2rem] ">
-                <img src={noBall} className="w-[100%] h-[100%]" />
-              </div>
-              <div className="h-[70%] w-[2rem] ">
-                <img src={wideBall} className="w-[100%] h-[100%]" />
-              </div>
-              <div className="h-[70%] w-[2rem] ">
-                <img src={wicket} className="w-[100%] h-[100%]" />
-              </div>
-            </div>
-          </div>
-        </div>
-        <button className="text-white  w-[12rem] h-[3rem] font-bold rounded-[10px] bg-[#434343]" onClick={()=>setBallScore("true")}>
-          Enter for ball 1.1
-        </button>
       </div>
-      {ballScore === "true" && <BallScoreModal setBallScore={setBallScore}/>}
+      {sixRun && (
+        <img
+          src={sixRuns}
+          className="w-[30rem] h-[40rem] absolute top-0 left-[25vw]"
+          alt="Six Runs"
+        />
+      )}
+      {fourRun && (
+        <img
+          src={fourRuns}
+          className="w-[30rem] h-[40rem] absolute top-0 left-[25vw]"
+          alt="Six Runs"
+        />
+      )}
     </div>
   );
 };

@@ -12,6 +12,8 @@ const CreateTeamModal = ({ setCreateTeamModal }) => {
   const [allPlayers, setAllPlayers] = useState(null);
   const [showError, setShowError] = useState(false); // To track error display
 
+
+  //function to get all players in the app who are not assigned to any team.
   useEffect(() => {
     const getAllPlayers = async (values) => {
       console.log(values);
@@ -51,6 +53,10 @@ const CreateTeamModal = ({ setCreateTeamModal }) => {
     return () => clearTimeout(errorTimeout);
   }, []);
 
+
+
+
+//submit handler function for create team button
   const handleSubmit = async (values) => {
     const players15 = values.players15;
     const player15Count = players15.filter(
@@ -73,7 +79,8 @@ const CreateTeamModal = ({ setCreateTeamModal }) => {
       ...values,
       country: user.country,
       teamCaptain: values.teamCaptain[0].value.name,
-      coach: user.name,
+      coachName: user.username,
+      country:user.country,
       totalPoints: 0,
       players:player,
     };
@@ -113,10 +120,11 @@ const CreateTeamModal = ({ setCreateTeamModal }) => {
           
           if(response.ok){
             const responseData = await response.json();
-            toast.success(responseData.message);
+            toast.success("Team Created.");
+            setCreateTeamModal("false")
             // setTimeout(() => setCreateTeamModal("false"), 2000);
           }else{
-            toast.error("oni")
+            toast.error("Could not create team.")
           }
 
         });
