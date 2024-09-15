@@ -23,9 +23,7 @@ const Tournament = () => {
       if (response.ok) {
         const data = await response.json();
         setGroupMatches(data); // Store tournament dat
-        console.log(data["Group A"]);
 
-        console.log(data);
       } else {
         throw new Error("Error fetching tournaments");
       }
@@ -48,7 +46,6 @@ const Tournament = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
         getGroupMatches();
       } else {
         throw new Error("Error fetching tournaments");
@@ -70,7 +67,6 @@ const Tournament = () => {
         if (response.ok) {
           const data = await response.json();
           setTournament(data);
-          console.log(data);
         } else {
           throw new Error("Error fetching tournaments");
         }

@@ -4,14 +4,16 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user"))
+  const user = JSON.parse(localStorage.getItem("user"));
   const [page, setPage] = useState("");
   const location = useLocation();
 
-  const logOut = ()=>{
+
+  //function called when logout button is clicked 
+  const logOut = () => {
     localStorage.removeItem("user");
-    navigate('/register')
-  }
+    navigate("/register");
+  };
 
   //setting up the page type.
   useEffect(() => {
@@ -30,10 +32,7 @@ const Sidebar = () => {
     ) {
       setPage("tournaments");
     }
-    if (
-      currentUrl.includes("players") ||
-      currentUrl.includes("player")
-    ) {
+    if (currentUrl.includes("players") || currentUrl.includes("player")) {
       setPage("players");
     }
   }, [useLocation()]);
@@ -68,14 +67,7 @@ const Sidebar = () => {
         >
           Tournaments
         </Link>
-        {/* <Link
-          to="/rankings"
-          className={` ${
-            page === "rankings" ? "text-[#FF730D]" : "text-white"
-          } `}
-        >
-          Rankings
-        </Link> */}
+
         <Link
           to="/players"
           className={` ${
@@ -84,18 +76,15 @@ const Sidebar = () => {
         >
           Players
         </Link>
-        {/* <Link
-          to="/news"
-          className={` ${page === "news" ? "text-[#FF730D]" : "text-white"} `}
-        >
-          News
-        </Link> */}
-
-        
       </div>
-     {user && <button className="text-white  bg-black w-[8rem] h-[3rem] rounded-[10px] border self-end" onClick={logOut}>
+      {user && (
+        <button
+          className="text-white  bg-black w-[8rem] h-[3rem] rounded-[10px] border self-end"
+          onClick={logOut}
+        >
           Log out
-        </button>}
+        </button>
+      )}
     </div>
   );
 };

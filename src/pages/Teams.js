@@ -11,7 +11,6 @@ const Teams = () => {
   const [type, setType] = useState("all");
   const [createTeamModal, setCreateTeamModal] = useState("false");
   
-  
 
   return (
     <div className="rounded-[10px] w-[100%] bg-black h-[100%] p-[2rem] flex flex-col gap-[1rem]">

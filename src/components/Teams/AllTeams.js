@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Error from "../Utilities/Error"; // Assuming Error component is here
+import Error from "../Utilities/Error"; 
 
 const AllTeams = ({createTeamModal}) => {
   const [allTeams, setAllTeams] = useState(null);
-  const [showError, setShowError] = useState(false); // To track error display
+  const [showError, setShowError] = useState(false); 
   
 
   //get the all teams present in the app.
@@ -23,14 +23,12 @@ const AllTeams = ({createTeamModal}) => {
 
         if (response.ok) {
           const result = await response.json();
-          console.log(result);
           setAllTeams(result)
           
         } else {
           throw new Error("Failed to fetch player");
         }
       } catch (error) {
-        console.log("An error occurred: " + error.message);
       }
     };
 

@@ -15,7 +15,7 @@ const Login = ({setPage}) => {
 
   // Handle form submission
   const handleFormSubmit = async (values) => {
-    console.log(values);
+    
 
     try {
       const response = await fetch(

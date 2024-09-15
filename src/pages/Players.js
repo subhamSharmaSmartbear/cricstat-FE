@@ -5,9 +5,11 @@ const Players = () => {
   const [allPlayers, setAllPlayers] = useState(null);
   const [showError, setShowError] = useState(false); // To track error display
 
+
+  //function to get all players in the platform
+  
   useEffect(() => {
     const getAllPlayers = async (values) => {
-      console.log(values);
 
       try {
         const response = await fetch(
@@ -22,8 +24,6 @@ const Players = () => {
         );
 
         const result = await response.json();
-
-        console.log(result);
 
         setAllPlayers(result);
       } catch (error) {

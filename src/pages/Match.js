@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Inings from "../components/Inings";
 import Table from "../components/Stats/Table";
 
@@ -61,13 +61,11 @@ const Match = () => {
 
         if (response.ok) {
           const result = await response.json();
-          console.log(result);
           setMatch(result);
         } else {
           throw new Error("Failed to fetch player");
         }
       } catch (error) {
-        console.log("An error occurred: " + error.message);
       }
     };
 
@@ -84,7 +82,6 @@ const Match = () => {
     const socket = new WebSocket("ws://10.34.20.35:8080/cricket");
 
     socket.onopen = () => {
-      console.log("Connected to WebSocket server.");
       setIsConnected(true);
     };
 
@@ -171,7 +168,6 @@ const Match = () => {
     };
 
     socket.onclose = () => {
-      console.log("Disconnected from WebSocket server.");
       setIsConnected(false);
     };
 

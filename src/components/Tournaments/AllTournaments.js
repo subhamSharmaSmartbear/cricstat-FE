@@ -76,10 +76,6 @@ const AllTournaments = ({createTournamentModal}) => {
       const teamData = await response.json();
       const data = teamData;
       delete data["coachId"]; 
-
-      console.log(data);
-      
-      console.log(teamData);
       
       if (teamData) register(data, tournamentId); // Register the team
     } catch (error) {

@@ -27,6 +27,8 @@ const Signup = ({ setPage }) => {
     data.append("upload_preset", "twinster");
     data.append("cloud_name", "dd2nvofv0");
 
+
+    //uploading image to cloudinary and then passing the response to the register api payload
     try {
       await fetch("https://api.cloudinary.com/v1_1/dd2nvofv0/image/upload", {
         method: "POST",
@@ -73,7 +75,7 @@ const Signup = ({ setPage }) => {
         const arr = responseData.map((e) => ({ label: e.name.common, value: e.name.common }));
         setCountries(arr);
       } catch (error) {
-        console.log("Internal Server Error");
+        
       }
     };
 

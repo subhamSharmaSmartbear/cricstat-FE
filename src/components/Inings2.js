@@ -1,385 +1,190 @@
 import React, { useState, useEffect } from "react";
-import sixRuns from "../assets/sixRuns.svg";
-import fourRuns from "../assets/fourRuns.svg";
-import AnimatedText from "./Utilities/AnimatedText";
 
-const Inings = () => {
+
+const Inings = ({ innings }) => {
+  // innings = null;
+  const [innings1, setInnings1] = useState(null);
+  const [innings2, setInnings2] = useState(null);
+  const [lastBallDetailsInings1, setLastBallDetailsInings1] = useState(null);
+  const [lastBallDetailsInings2, setLastBallDetailsInings2] = useState(null);
+  const [oversInings1, setoversInings1] = useState(null);
+  const [oversInings2, setoversInings2] = useState(null);
+
+  function groupBallsByOver(balls) {
+    const overs = {};
+
+    balls.forEach((ball) => {
+      if (!overs[ball.overNumber]) {
+        overs[ball.overNumber] = {
+          overNumber: ball.overNumber,
+          balls: [],
+        };
+      }
+      overs[ball.overNumber].balls.push(ball);
+    });
+
+    
+
+    return Object.values(overs); // Convert the overs object to an array of objects with over number
+  }
+
+  useEffect(() => {
+    const setIningsWise = (innings) => {
+      if (innings && innings[0]) setInnings1(innings[0]);
+      if (innings && innings[1]) setInnings2(innings[1]);
+    };
+
+    setIningsWise(innings);
+    if (innings && innings[0]) {
+      setLastBallDetailsInings1(innings[0].balls[innings[0].balls.length - 1]);
+      setoversInings1(groupBallsByOver(innings[0].balls).reverse());
+    }
+
+    if (innings && innings[1]) {
+      setLastBallDetailsInings2(innings[1].balls[innings[1].balls.length - 1]);
+      setoversInings2(groupBallsByOver(innings[1].balls).reverse());
+    }
+  }, []);
+
   return (
-    <div className="w-[100%] h-[70%] flex flex-col">
+    <div className="w-[100%] h-[70%] flex flex-col ">
       <div className="w-[100%] h-[100%] flex justify-between flex-col gap-[0.5rem] text-white ">
-        <div className="w-[100%] h-[48%]  flex flex-col">
-          <span className="text-[26px] font-bold ">Inings 1</span>
-          <div className="w-[100%] h-[105%] border rounded-[10px] flex flex-col justify-between p-[0.5rem] border-[#434343]">
-            <div className="w-[100%] h-[48%] flex justify-between">
-              <div className="w-[32%] h-[100%]  flex flex-col justify-center">
-                <span>
-                  Batting Team -{" "}
-                  <span className="font-bold text-[22px] text-[#34e8eb]">
-                    Australia
+        {innings1 !== null && (
+          <div className="w-[100%] h-[48%]  flex flex-col">
+            <span className="text-[26px] font-bold ">Inings 1</span>
+            <div className="w-[100%] h-[105%] border rounded-[10px] flex flex-col justify-between p-[0.5rem] border-[#434343]">
+              <div className="w-[100%] h-[48%] flex justify-between">
+                <div className="w-[32%] h-[100%]  flex flex-col justify-center">
+                  <span>
+                    Batting Team -{" "}
+                    <span className="font-bold text-[22px] text-[#34e8eb]">
+                      {innings1.battingTeamName}
+                    </span>{" "}
+                    <span className="font-bold text-[22px] ml-[10px]">
+                      {lastBallDetailsInings1.totalScore} -{" "}
+                      {lastBallDetailsInings1.wicketNumber}
+                    </span>
                   </span>
-                </span>
-                <span>
-                  Bowling Team -{" "}
-                  <span className="font-bold text-[22px] text-[#bff23d]">
-                    India
+                  <span>
+                    Bowling Team -{" "}
+                    <span className="font-bold text-[22px] text-[#bff23d]">
+                      {innings1.bowlingTeamName}
+                    </span>
                   </span>
-                </span>
-              </div>
-              <div className="w-[32%] h-[100%]  flex flex-col items-center justify-center">
-                <span>
-                  Striker - <span className="font-bold text-[22px]">Kohli</span>
-                </span>
-                <span>
-                  Non-Striker -{" "}
-                  <span className="font-bold text-[22px]">Rohit</span>
-                </span>
-              </div>
-              <div className="w-[32%] h-[100%]  flex flex-col items-end justify-center">
-                <span>
-                  Bowler -{" "}
-                  <span className="font-bold text-[22px]">Rashid Khan</span>
-                </span>
-                <span>
-                  Runs - <span className="font-bold text-[22px]">20 - 1</span>
-                </span>
-              </div>
-            </div>
-            <div className="w-[100%] h-[48%] border bg-white rounded-[10px] text-black flex overflow-x-scroll scrollable-content custom-scrollbar p-[0.5rem] gap-[1rem]">
-              <div className="w-auto h-[100%] flex-shrink-0">
-                <span className="font-bold">Over 8</span>
-                <div className="w-[100%] h-[70%] bg-[#D9D9D9] rounded-[100px] flex items-center p-[0.4rem] justify-between gap-[0.4rem]">
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    6
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    4
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    WD
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    OUT
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    1
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    2
-                  </div>
-                 
+                </div>
+                <div className="w-[32%] h-[100%]  flex flex-col items-center justify-center">
+                  <span>
+                    Striker -{" "}
+                    <span className="font-bold text-[22px]">
+                      {lastBallDetailsInings1.striker}
+                    </span>
+                  </span>
+                  <span>
+                    Non-Striker -{" "}
+                    <span className="font-bold text-[22px]">
+                      {lastBallDetailsInings1.nonStriker}
+                    </span>
+                  </span>
+                </div>
+                <div className="w-[32%] h-[100%]  flex flex-col items-end justify-center">
+                  <span>
+                    Bowler -{" "}
+                    <span className="font-bold text-[22px]">
+                      {lastBallDetailsInings1.bowler}
+                    </span>
+                  </span>
                 </div>
               </div>
-              <div className="w-auto h-[100%] flex-shrink-0">
-                <span className="font-bold">Over 8</span>
-                <div className="w-[100%] h-[70%] bg-[#D9D9D9] rounded-[100px] flex items-center p-[0.4rem] justify-between gap-[0.4rem]">
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    6
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    4
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    WD
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    OUT
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    1
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    2
-                  </div>
-                 
-                </div>
+              <div className="w-[100%] h-[48%] border bg-white rounded-[10px] text-black flex overflow-x-scroll scrollable-content custom-scrollbar p-[0.5rem] gap-[1rem]">
+                {oversInings1 !== null &&
+                  oversInings1.map((over) => (
+                    <div className="w-auto h-[100%] flex-shrink-0">
+                      <span className="font-bold">Over {over.overNumber}</span>
+                      <div className="w-[100%] h-[70%] bg-[#D9D9D9] rounded-[100px] flex items-center p-[0.4rem] justify-between gap-[0.4rem]">
+                        {over.balls.map((ball) => (
+                          <div className={`w-[40px] h-[100%] font-bold text-[12px] border rounded-[100px] bg-white flex items-center justify-center `}>
+                            {ball.wicket !== "NONE" ? (
+                              <>W/{ball.runsScored}</>
+                            ) : (
+                              <>{ball.runsScored}</>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
               </div>
-              <div className="w-auto h-[100%] flex-shrink-0">
-                <span className="font-bold">Over 8</span>
-                <div className="w-[100%] h-[70%] bg-[#D9D9D9] rounded-[100px] flex items-center p-[0.4rem] justify-between gap-[0.4rem]">
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    6
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    4
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    WD
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    OUT
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    1
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    2
-                  </div>
-                 
-                </div>
-              </div>
-              <div className="w-auto h-[100%] flex-shrink-0">
-                <span className="font-bold">Over 8</span>
-                <div className="w-[100%] h-[70%] bg-[#D9D9D9] rounded-[100px] flex items-center p-[0.4rem] justify-between gap-[0.4rem]">
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    6
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    4
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    WD
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    OUT
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    1
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    2
-                  </div>
-                 
-                </div>
-              </div>
-              <div className="w-auto h-[100%] flex-shrink-0">
-                <span className="font-bold">Over 8</span>
-                <div className="w-[100%] h-[70%] bg-[#D9D9D9] rounded-[100px] flex items-center p-[0.4rem] justify-between gap-[0.4rem]">
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    6
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    4
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    WD
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    OUT
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    1
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    2
-                  </div>
-                 
-                </div>
-              </div>
-              <div className="w-auto h-[100%] flex-shrink-0">
-                <span className="font-bold">Over 8</span>
-                <div className="w-[100%] h-[70%] bg-[#D9D9D9] rounded-[100px] flex items-center p-[0.4rem] justify-between gap-[0.4rem]">
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    6
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    4
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    WD
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    OUT
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    1
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    2
-                  </div>
-                 
-                </div>
-              </div>
-              
             </div>
           </div>
-        </div>
-        <div className="w-[100%] h-[48%]  flex flex-col">
-          <span className="text-[26px] font-bold ">Inings 2</span>
-          <div className="w-[100%] h-[105%] border rounded-[10px] flex flex-col justify-between p-[0.5rem] border-[#434343]">
-            <div className="w-[100%] h-[48%] flex justify-between">
-              <div className="w-[32%] h-[100%]  flex flex-col justify-center">
-                <span>
-                  Batting Team -{" "}
-                  <span className="font-bold text-[22px] text-[#34e8eb]">
-                    Australia
+        )}
+        {innings2 !== null && (
+          <div className="w-[100%] h-[48%]  flex flex-col">
+            <span className="text-[26px] font-bold ">Inings 2</span>
+            <div className="w-[100%] h-[105%] border rounded-[10px] flex flex-col justify-between p-[0.5rem] border-[#434343]">
+              <div className="w-[100%] h-[48%] flex justify-between">
+                <div className="w-[32%] h-[100%]  flex flex-col justify-center">
+                  <span>
+                    Batting Team -{" "}
+                    <span className="font-bold text-[22px] text-[#34e8eb]">
+                      {innings2.battingTeamName}
+                    </span>{" "}
+                    <span className="font-bold text-[22px] ml-[10px]">
+                      {lastBallDetailsInings2.totalScore} -{" "}
+                      {lastBallDetailsInings2.wicketNumber}
+                    </span>
                   </span>
-                </span>
-                <span>
-                  Bowling Team -{" "}
-                  <span className="font-bold text-[22px] text-[#bff23d]">
-                    India
+                  <span>
+                    Bowling Team -{" "}
+                    <span className="font-bold text-[22px] text-[#bff23d]">
+                      {innings2.bowlingTeamName}
+                    </span>
                   </span>
-                </span>
-              </div>
-              <div className="w-[32%] h-[100%]  flex flex-col items-center justify-center">
-                <span>
-                  Striker - <span className="font-bold text-[22px]">Kohli</span>
-                </span>
-                <span>
-                  Non-Striker -{" "}
-                  <span className="font-bold text-[22px]">Rohit</span>
-                </span>
-              </div>
-              <div className="w-[32%] h-[100%]  flex flex-col items-end justify-center">
-                <span>
-                  Bowler -{" "}
-                  <span className="font-bold text-[22px]">Rashid Khan</span>
-                </span>
-                <span>
-                  Runs - <span className="font-bold text-[22px]">20 - 1</span>
-                </span>
-              </div>
-            </div>
-            <div className="w-[100%] h-[48%] border bg-white rounded-[10px] text-black flex overflow-x-scroll scrollable-content custom-scrollbar p-[0.5rem] gap-[1rem]">
-              <div className="w-auto h-[100%] flex-shrink-0">
-                <span className="font-bold">Over 8</span>
-                <div className="w-[100%] h-[70%] bg-[#D9D9D9] rounded-[100px] flex items-center p-[0.4rem] justify-between gap-[0.4rem]">
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    6
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    4
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    WD
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    OUT
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    1
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    2
-                  </div>
-                 
+                </div>
+                <div className="w-[32%] h-[100%]  flex flex-col items-center justify-center">
+                  <span>
+                    Striker -{" "}
+                    <span className="font-bold text-[22px]">
+                      {lastBallDetailsInings2.striker}
+                    </span>
+                  </span>
+                  <span>
+                    Non-Striker -{" "}
+                    <span className="font-bold text-[22px]">
+                      {lastBallDetailsInings2.nonStriker}
+                    </span>
+                  </span>
+                </div>
+                <div className="w-[32%] h-[100%]  flex flex-col items-end justify-center">
+                  <span>
+                    Bowler -{" "}
+                    <span className="font-bold text-[22px]">
+                      {lastBallDetailsInings2.bowler}
+                    </span>
+                  </span>
                 </div>
               </div>
-              <div className="w-auto h-[100%] flex-shrink-0">
-                <span className="font-bold">Over 8</span>
-                <div className="w-[100%] h-[70%] bg-[#D9D9D9] rounded-[100px] flex items-center p-[0.4rem] justify-between gap-[0.4rem]">
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    6
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    4
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    WD
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    OUT
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    1
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    2
-                  </div>
-                 
-                </div>
+              <div className="w-[100%] h-[48%] border bg-white rounded-[10px] text-black flex overflow-x-scroll scrollable-content custom-scrollbar p-[0.5rem] gap-[1rem]">
+                {oversInings2 !== null &&
+                  oversInings2.map((over) => (
+                    <div className="w-auto h-[100%] flex-shrink-0">
+                      <span className="font-bold">Over {over.overNumber}</span>
+                      <div className="w-[100%] h-[70%] bg-[#D9D9D9] rounded-[100px] flex items-center p-[0.4rem] justify-between gap-[0.4rem]">
+                        {over.balls.map((ball) => (
+                          <div className="w-[40px] h-[100%] font-bold text-[12px] border rounded-[100px] bg-white flex items-center justify-center">
+                            {ball.wicket !== "NONE" ? (
+                              <>W/{ball.runsScored}</>
+                            ) : (
+                              <>{ball.runsScored}</>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
               </div>
-              <div className="w-auto h-[100%] flex-shrink-0">
-                <span className="font-bold">Over 8</span>
-                <div className="w-[100%] h-[70%] bg-[#D9D9D9] rounded-[100px] flex items-center p-[0.4rem] justify-between gap-[0.4rem]">
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    6
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    4
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    WD
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    OUT
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    1
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    2
-                  </div>
-                 
-                </div>
-              </div>
-              <div className="w-auto h-[100%] flex-shrink-0">
-                <span className="font-bold">Over 8</span>
-                <div className="w-[100%] h-[70%] bg-[#D9D9D9] rounded-[100px] flex items-center p-[0.4rem] justify-between gap-[0.4rem]">
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    6
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    4
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    WD
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    OUT
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    1
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    2
-                  </div>
-                 
-                </div>
-              </div>
-              <div className="w-auto h-[100%] flex-shrink-0">
-                <span className="font-bold">Over 8</span>
-                <div className="w-[100%] h-[70%] bg-[#D9D9D9] rounded-[100px] flex items-center p-[0.4rem] justify-between gap-[0.4rem]">
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    6
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    4
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    WD
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    OUT
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    1
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    2
-                  </div>
-                 
-                </div>
-              </div>
-              <div className="w-auto h-[100%] flex-shrink-0">
-                <span className="font-bold">Over 8</span>
-                <div className="w-[100%] h-[70%] bg-[#D9D9D9] rounded-[100px] flex items-center p-[0.4rem] justify-between gap-[0.4rem]">
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    6
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    4
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    WD
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    OUT
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    1
-                  </div>
-                  <div className="w-[40px] h-[100%] border rounded-[100px] bg-white flex items-center justify-center">
-                    2
-                  </div>
-                 
-                </div>
-              </div>
-              
             </div>
           </div>
-        </div>
-        
+        )}
       </div>
     </div>
   );

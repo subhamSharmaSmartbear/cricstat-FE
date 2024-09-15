@@ -15,7 +15,6 @@ const Finals = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
 
         setFinalMatches(data); // Store tournament dat
       } else {

@@ -11,7 +11,7 @@ const Header = () => {
     setUser(storedUser);
   }, []);
 
-  console.log(user);
+  
 
   return (
     <div className=" w-[100%] h-[10vh] flex justify-between items-center">

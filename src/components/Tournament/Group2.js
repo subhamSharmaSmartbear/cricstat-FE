@@ -1,7 +1,6 @@
 import React from 'react'
-import mi from "../../assets/mi.svg"
-import kkr from "../../assets/kkr.svg"
 import { Link } from 'react-router-dom';
+
 const Group2 = ({groupMatches}) => {
   return (
     <div className="w-[100%]  h-[60%] flex flex-col  justify-between overflow-y-scroll  scrollable-content custom-scrollbar  ">

@@ -20,10 +20,8 @@ const Team = () => {
 
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
           setTeam(data); // Store team data
           setPlayers(data.players);
-          console.log(data);
         } else {
           throw new Error("Error fetching team");
         }

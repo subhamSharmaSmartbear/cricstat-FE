@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import sixRuns from "../assets/sixRuns.svg";
 import fourRuns from "../assets/fourRuns.svg";
-import AnimatedText from "./Utilities/AnimatedText";
 
 const Inings = ({
   scorecard,
@@ -48,7 +47,7 @@ const Inings = ({
     }
   }, [scorecard.ballscore, matchResult]); // Dependency array to re-run effect on ballscore change
 
-  console.log(scorecard);
+  
   
 
 

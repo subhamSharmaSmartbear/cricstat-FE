@@ -3,7 +3,6 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import Select from "react-dropdown-select";
 import toast from "react-hot-toast";
-import { json } from "react-router-dom";
 
 const CreateTournamentModal = ({ setCreateTournamentModal }) => {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -52,7 +51,6 @@ const CreateTournamentModal = ({ setCreateTournamentModal }) => {
 
   //function for creating the tournament
   const CreateTournament = async (values) => {
-    console.log(values);
 
     try {
       const response = await fetch(
@@ -71,7 +69,6 @@ const CreateTournamentModal = ({ setCreateTournamentModal }) => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
         toast.success("Tournament Created !")
         setCreateTournamentModal("false");
       } else {

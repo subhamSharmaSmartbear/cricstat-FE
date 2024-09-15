@@ -16,7 +16,7 @@ const CreateTeamModal = ({ setCreateTeamModal }) => {
   //function to get all players in the app who are not assigned to any team.
   useEffect(() => {
     const getAllPlayers = async (values) => {
-      console.log(values);
+      
 
       try {
         const response = await fetch(
@@ -33,7 +33,7 @@ const CreateTeamModal = ({ setCreateTeamModal }) => {
         if (response.ok) {
           const result = await response.json();
           setAllPlayers(result);
-          console.log(result);
+         
         }
       } catch (error) {
         // toast.error("An error occurred: " + error.message);
@@ -72,7 +72,7 @@ const CreateTeamModal = ({ setCreateTeamModal }) => {
     }
 
     const player = values.players15.map((player)=>player.value)
-    // console.log(player);
+    
     
 
     values = {
@@ -85,7 +85,7 @@ const CreateTeamModal = ({ setCreateTeamModal }) => {
       players:player,
     };
 
-    console.log(values);
+    
 
     const formData = new FormData();
     for (let value in values) formData.append(value, values[value]);
@@ -112,11 +112,7 @@ const CreateTeamModal = ({ setCreateTeamModal }) => {
               body: JSON.stringify({ ...values, icon: data.url }),
             }
           );
-          // const result = await response.json();
-          // console.log(response);
-          
-          
-          // console.log(result);
+         
           
           if(response.ok){
             const responseData = await response.json();
@@ -132,7 +128,6 @@ const CreateTeamModal = ({ setCreateTeamModal }) => {
       toast.error( error.message);
     }
 
-    console.log(values);
   };
 
   const schema = Yup.object().shape({

@@ -6,7 +6,6 @@ const Table = () => {
   const { id } = useParams();
 
 
-
   //function to get the player stats.
 
   useEffect(() => {
@@ -25,13 +24,11 @@ const Table = () => {
         if (response.ok) {
           const result = await response.json();
           setPlayers(result); // Update the state with the fetched players
-          console.log(result);
           
         } else {
           throw new Error("Failed to fetch player");
         }
       } catch (error) {
-        console.log("An error occurred: " + error.message);
       }
     };
 

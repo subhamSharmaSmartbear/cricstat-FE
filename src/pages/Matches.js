@@ -25,7 +25,6 @@ const Matches = () => {
 
         if (response.ok) {
           const result = await response.json();
-          console.log(result);
 
           setMatches(result)
           
@@ -34,7 +33,6 @@ const Matches = () => {
           throw new Error("Failed to fetch player");
         }
       } catch (error) {
-        console.log("An error occurred: " + error.message);
       }
     };
 

@@ -31,8 +31,7 @@ export const CustomSelect = ({
         ? (option as Option[]).map((item: Option) => item.value)
         : (option as Option).value
     );
-    console.log(field);
-    // console.log(field)
+
    
     
   };

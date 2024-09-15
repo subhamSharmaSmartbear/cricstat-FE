@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
 const Semifinal = () => {
@@ -16,7 +16,6 @@ const {id} = useParams();
 
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
           
           setSemiFinalMatches(data); // Store tournament dat
          
@@ -58,13 +57,7 @@ const {id} = useParams();
             <div className="w-[49%] h-[100%]  flex justify-between flex-col items-center">
               <div className="w-[100%] h-[49%]  flex justify-between items-center">
                 <div className="w-[80%] h-[100%] flex gap-[0.5rem]">
-                  {/* <div className="w-[50px] h-[50px]">
-                    <img
-                      src={mi}
-                      alt="team_logo"
-                      className="w-[100%] h-[100%]"
-                    />
-                  </div> */}
+
                   <span className="text-white text-[20px]">Team A - {match.teamA}</span>
                 </div>
                 
