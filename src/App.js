@@ -4,6 +4,7 @@ import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
 import Matches from "./pages/Matches";
 import Match from "./pages/Match";
+import Match2 from "./pages/Match2";
 import Teams from "./pages/Teams";
 import Tournaments from "./pages/Tournaments";
 import Tournament from "./pages/Tournament";
@@ -33,7 +34,7 @@ function DefaultContainer({ loader }) {
           <Routes>
             <Route path="/" element={<Navigate to="/teams" />} />
             <Route path="/matches" element={<Matches page={"matches"}/>} />
-            <Route path="/match/:id" element={<Match page={"match"}/>} />
+            <Route path="/match/:id" element={<Match2 page={"match"}/>} />
             <Route path="/teams" element={<Teams page={"teams"}/>} />
             <Route path="/team/:id" element={<Team page={"team"}/>} />
             <Route path="/tournaments" element={<Tournaments page={"tournaments"}/>} />
