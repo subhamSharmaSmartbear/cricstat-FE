@@ -60,3 +60,62 @@
     background: #555; /* Thumb color on hover */
   }
   
+
+
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    color: #333;
+    background-color: #f4f4f4;
+  }
+  
+  .match-result {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #444;
+  }
+  
+  .table-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .table-header {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #333;
+    background-color: #ddd;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .stats-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .stats-table th, .stats-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .stats-table th {
+    background-color: #f4f4f4;
+    color: #333;
+  }
+  
+  .stats-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .stats-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  

@@ -1,149 +1,155 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React from 'react';
 
-const Table = () => {
-  const [players, setPlayers] = useState([]);
-  const { id } = useParams();
+// Helper function to calculate batting and bowling stats
+const calculateStats = (innings) => {
+  const battingStats = {};
+  const bowlingStats = {};
 
+  innings.forEach((inning) => {
+    inning.balls.forEach((ball) => {
+      // Update batting stats
+      if (!battingStats[ball.striker]) {
+        battingStats[ball.striker] = { runs: 0, balls: 0, dotBalls: 0 };
+      }
+      if (ball.wicket !== "NONE") {
+        // Wickets are not counted in this table
+      } else {
+        battingStats[ball.striker].runs += ball.runsScored;
+        battingStats[ball.striker].balls += 1;
 
-  //function to get the player stats.
-
-  useEffect(() => {
-    const getPlayerStats = async () => {
-      try {
-        const response = await fetch(
-          `${process.env.REACT_APP_API_URL_GAME_ENGINE}api/admin/tournaments/player-stats/${id}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
-        if (response.ok) {
-          const result = await response.json();
-          setPlayers(result); // Update the state with the fetched players
-          
-        } else {
-          throw new Error("Failed to fetch player");
+        // Track dot balls
+        if (ball.runsScored === 0) {
+          battingStats[ball.striker].dotBalls += 1;
         }
-      } catch (error) {
       }
-    };
 
-    getPlayerStats();
-  }, [id]);
-
-  // Helper function to categorize players by playerType
-  const categorizePlayers = (teamPlayers) => {
-    const batters = teamPlayers.filter(player => player.playerType === 'Batsman');
-    const bowlers = teamPlayers.filter(player => player.playerType === 'Bowler');
-    const allRounders = teamPlayers.filter(player => player.playerType === 'All-Rounder');
-    return { batters, bowlers, allRounders };
-  };
-
-  // Helper function to group players by country (teamName)
-  const groupPlayersByCountry = (players) => {
-    return players.reduce((acc, player) => {
-      if (!acc[player.teamName]) {
-        acc[player.teamName] = [];
+      // Update bowling stats
+      if (ball && !bowlingStats[ball.bowler]) {
+        bowlingStats[ball.bowler] = { runs: 0, balls: 0, wickets: 0 };
       }
-      acc[player.teamName].push(player);
-      return acc;
-    }, {});
-  };
+      bowlingStats[ball.bowler].runs += ball.runsScored;
+      bowlingStats[ball.bowler].balls += 1;
+      if (ball.wicket !== "NONE") {
+        bowlingStats[ball.bowler].wickets += 1;
+      }
+    });
+  });
 
-  // Calculate total runs for a team
-  const calculateTotalRuns = (teamPlayers) => {
-    return teamPlayers.reduce((total, player) => total + player.runs, 0);
-  };
+  return { battingStats, bowlingStats };
+};
 
-  // Reusable component to render players by category
-  const renderPlayerCategory = (categoryPlayers, title) => (
-    <>
-      <h3 className="text-[24px] text-yellow-400 font-semibold py-2">{title}</h3>
-      <table className="w-full text-left rtl:text-right mb-4">
-        <thead className="text-[16px] text-[#ffffff] font-extrabold uppercase border-b">
-          <tr>
-            <th scope="col" className="px-6 py-3">Player</th>
-            <th scope="col" className="px-6 py-3">Matches</th>
-            <th scope="col" className="px-6 py-3">Runs</th>
-            <th scope="col" className="px-6 py-3">Fours</th>
-            <th scope="col" className="px-6 py-3">Sixes</th>
-            <th scope="col" className="px-6 py-3">Threes</th>
-            <th scope="col" className="px-6 py-3">Twos</th>
-            <th scope="col" className="px-6 py-3">Wickets Taken</th>
-          </tr>
-        </thead>
-        <tbody className="text-[#989898]">
-          {categoryPlayers.map((player) => (
-            <tr key={player.id}>
-              <th scope="row" className="px-6 py-4 whitespace-nowrap">
-                {player.playerName}
-              </th>
-              <td className="px-6 py-4">1</td> {/* Assuming "Matches" is static */}
-              <td className="px-6 py-4">{player.runs}</td>
-              <td className="px-6 py-4">{player.fours}</td>
-              <td className="px-6 py-4">{player.sixes}</td>
-              <td className="px-6 py-4">{player.threes}</td>
-              <td className="px-6 py-4">{player.twos}</td>
-              <td className="px-6 py-4">{player.wicketsTaken}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </>
-  );
+// Calculate winner based on total score
+const calculateWinner = (team1Score, team2Score, team1Name, team2Name) => {
+  if (team1Score > team2Score) return `${team1Name} wins`;
+  if (team1Score < team2Score) return `${team2Name} wins`;
+  return "It's a tie";
+};
 
-  // Render team table with player categories and total runs
-  const renderTeamTable = (teamPlayers, teamName) => {
-    const { batters, bowlers, allRounders } = categorizePlayers(teamPlayers);
-    const totalRuns = calculateTotalRuns(teamPlayers);
+const Table = ({ innings }) => {
+  const team1Innings = innings[0];
+  const team2Innings = innings[1];
 
-    return (
-      <>
-        <h2 className="text-[30px] text-white font-bold py-2">{teamName}</h2>
-        {batters.length > 0 && renderPlayerCategory(batters, 'Batters')}
-        {bowlers.length > 0 && renderPlayerCategory(bowlers, 'Bowlers')}
-        {allRounders.length > 0 && renderPlayerCategory(allRounders, 'All-Rounders')}
-        {/* <h3 className="text-[24px] text-green-400 font-bold py-2">Total Runs: {totalRuns}</h3> */}
-      </>
-    );
-  };
+  const { battingStats: team1BattingStats, bowlingStats: team1BowlingStats } = calculateStats([team1Innings]);
+  const { battingStats: team2BattingStats, bowlingStats: team2BowlingStats } = calculateStats([team2Innings]);
 
-  // Group players by country
-  const playersByCountry = groupPlayersByCountry(players);
+  const team1TotalScore = team1Innings.balls.reduce((acc, ball) => acc + ball.runsScored, 0);
+  const team2TotalScore = team2Innings.balls.reduce((acc, ball) => acc + ball.runsScored, 0);
 
-  // Calculate total runs for each country
-  const countryTotals = Object.keys(playersByCountry).map((country) => ({
-    country,
-    totalRuns: calculateTotalRuns(playersByCountry[country])
-  }));
-
-  // Determine the winner (country with highest total runs)
-  const winner = countryTotals.reduce((prev, current) =>
-    current.totalRuns > prev.totalRuns ? current : prev, { totalRuns: 0 });
+  const winner = calculateWinner(team1TotalScore, team2TotalScore, team1Innings.battingTeamName, team2Innings.battingTeamName);
 
   return (
-    <div className="relative overflow-x-auto w-[100%] h-[55%] bg-black scrollable-content custom-scrollbar border-none">
-      {/* Render tables by country */}
-      {winner && (
-        <div className="py-4">
-          <h2 className="text-[36px] text-green-400 animate-pulse font-bold">
-            Winner: {winner.country} 
-          </h2>
-        </div>
-      )}
-      {Object.keys(playersByCountry).map((country) => (
-        <div key={country}>
-          
-          {renderTeamTable(playersByCountry[country], country)}
-        </div>
-      ))}
+    <div className='container h-[70%] rounded-[10px] p-4'>
+      <h1 className='text-center text-2xl font-bold mb-4'>Match Result: {winner}</h1>
 
-      
-      
+      <div className='table-container w-[100%] h-[90%] overflow-x-scroll'>
+        <h2 className='table-header text-xl font-semibold'>{team1Innings.battingTeamName} Batting Stats</h2>
+        <table className='stats-table'>
+          <thead>
+            <tr>
+              <th>Player</th>
+              <th>Runs</th>
+              <th>Balls Faced</th>
+              <th>Dot Balls</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.entries(team1BattingStats).map(([player, stats]) => (
+              <tr key={player}>
+                <td>{player}</td>
+                <td>{stats.runs}</td>
+                <td>{stats.balls}</td>
+                <td>{stats.dotBalls}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        <h2 className='table-header text-xl font-semibold'>{team1Innings.bowlingTeamName} Bowling Stats</h2>
+        <table className='stats-table'>
+          <thead>
+            <tr>
+              <th>Player</th>
+              <th>Runs Conceded</th>
+              <th>Balls Bowled</th>
+              <th>Wickets</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.entries(team1BowlingStats).map(([player, stats]) => (
+              <tr key={player}>
+                <td>{player}</td>
+                <td>{stats.runs}</td>
+                <td>{stats.balls}</td>
+                <td>{stats.wickets}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        <h2 className='table-header text-xl font-semibold'>{team2Innings.battingTeamName} Batting Stats</h2>
+        <table className='stats-table'>
+          <thead>
+            <tr>
+              <th>Player</th>
+              <th>Runs</th>
+              <th>Balls Faced</th>
+              <th>Dot Balls</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.entries(team2BattingStats).map(([player, stats]) => (
+              <tr key={player}>
+                <td>{player}</td>
+                <td>{stats.runs}</td>
+                <td>{stats.balls}</td>
+                <td>{stats.dotBalls}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        <h2 className='table-header text-xl font-semibold'>{team2Innings.bowlingTeamName} Bowling Stats</h2>
+        <table className='stats-table'>
+          <thead>
+            <tr>
+              <th>Player</th>
+              <th>Runs Conceded</th>
+              <th>Balls Bowled</th>
+              <th>Wickets</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.entries(team2BowlingStats).map(([player, stats]) => (
+              <tr key={player}>
+                <td>{player}</td>
+                <td>{stats.runs}</td>
+                <td>{stats.balls}</td>
+                <td>{stats.wickets}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
