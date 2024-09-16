@@ -37,68 +37,56 @@ CRICSTAT-FE/
 │   ├── components/
 │   │   ├── Matches/
 │   │   │   ├── LiveMatches.js
-│   │   │   ├── Matches.js
-│   │   │   ├── PastMatches.js
-│   │   │   └── UpcomingMatches.js
+│   │   │   ├── LiveMatches.test.js
+│   │   │   └── Matches.js
 │   │   ├── Modal/
-│   │   │   ├── BallScoreModal.js
 │   │   │   ├── CreateTeamModal.js
-│   │   │   └── ManageTeamModal.js
+│   │   │   ├── CreateTournamentModal.js
+│   │   │   └── BallScoreModal.js
 │   │   ├── Stats/
-│   │   │   ├── BallingStats.js
-│   │   │   ├── BallingTable.js
-│   │   │   ├── BattingStats.js
-│   │   │   ├── BattingTable.js
-│   │   │   ├── PlayerBallingTable.js
-│   │   │   ├── PlayerBattingTable.js
+│   │   │   ├── Table.js
 │   │   │   └── Statistics.js
 │   │   ├── Teams/
 │   │   │   ├── AllTeams.js
-│   │   │   └── MyTeams.js
-│   │   │       └── MyTeams.stories.jsx
-│   │   ├── Squad.js
+│   │   │   └── MyTeams.stories.jsx
 │   │   ├── Tournament/
 │   │   │   ├── Finals.js
 │   │   │   ├── Group1.js
 │   │   │   ├── Group2.js
+│   │   │   └── Semifinal.js
 │   │   ├── Tournaments/
 │   │   │   ├── AllTournaments.js
-│   │   │   ├── MyTournaments.js
 │   │   │   └── Tournaments.js
-│   │   └── Utilities/
+│   │   ├── Utilities/
 │   │       ├── AnimatedText.js
 │   │       ├── CurrentDateTime.js
 │   │       ├── CustomSelect.tsx
 │   │       ├── Error.js
 │   │       ├── Header.js
-│   │       ├── Inings.js
-│   │       └── Sidebar.js
+│   │       ├── Inings2.js
+│   │       ├── Sidebar.js
+│   │       └── Login.js
 │   │
 │   ├── pages/
-│   │   ├── Edit.js
-│   │   ├── login.js
-│   │   ├── Match.js
+│   │   ├── Match2.js
 │   │   ├── Matches.js
-│   │   ├── Player.js
 │   │   ├── Players.js
-│   │   ├── RealTimeUpdates.js
 │   │   ├── Register.js
 │   │   ├── Team.js
-│   │   ├── Teams.js
-│   │   ├── Tournament.js
-│   │   └── Tournaments.js
+│   │   └── Tournament.js
 │   │
 │   ├── App.js
 │   ├── index.css
 │   ├── index.js
-│   └── logo.svg
+│   ├── logo.svg
+│   └── tailwind.config.js
 │
 ├── .env
 ├── .gitignore
 ├── package-lock.json
 ├── package.json
-├── tailwind.config.js
-└── README.md
+├── README.md
+
 
 ```
 

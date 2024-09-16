@@ -12,6 +12,8 @@ const Inings2 = ({innings}) => {
   const [oversInings1, setoversInings1] = useState([]);
   const [oversInings2, setoversInings2] = useState([]);
 
+
+  //grouping balls by over
   function groupBallsByOver(balls) {
     
     

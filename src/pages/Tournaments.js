@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import AllTournaments from "../components/Tournaments/AllTournaments";
-import MyTournaments from "../components/Tournaments/MyTournaments";
 import CreateTournamentModal from "../components/Modal/CreateTournamentModal";
 
 const Tournaments = () => {
@@ -27,7 +26,7 @@ const Tournaments = () => {
       </div>
 
       {type === "all" && <AllTournaments createTournamentModal={createTournamentModal}/>}
-      {type === "my" && <MyTournaments />}
+     
 
       {
         createTournamentModal === "true" && <CreateTournamentModal setCreateTournamentModal={setCreateTournamentModal}/>

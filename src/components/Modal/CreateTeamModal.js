@@ -9,54 +9,42 @@ const CreateTeamModal = ({ setCreateTeamModal }) => {
   const user = JSON.parse(localStorage.getItem("user"));
 
   const [image, setImage] = useState("");
-  const [allPlayers, setAllPlayers] = useState(null);
-  const [showError, setShowError] = useState(false); // To track error display
+  const [allPlayers, setAllPlayers] = useState([]);
+  const [showError, setShowError] = useState(false);
 
-
-  //function to get all players in the app who are not assigned to any team.
-  useEffect(() => {
-    const getAllPlayers = async (values) => {
-      
-
-      try {
-        const response = await fetch(
-          `${process.env.REACT_APP_API_URL_AUTH}api/players/no-team`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(values),
-          }
-        );
-
-        if (response.ok) {
-          const result = await response.json();
-          setAllPlayers(result);
-         
+  const getAllPlayers = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL_AUTH}api/players/no-team`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-      } catch (error) {
-        // toast.error("An error occurred: " + error.message);
-      }
-    };
+      );
 
+      if (response.ok) {
+        const result = await response.json();
+        setAllPlayers(Array.isArray(result) ? result : []);
+      }
+    } catch (error) {
+      // toast.error("An error occurred: " + error.message);
+    }
+  };
+
+  useEffect(() => {
     getAllPlayers();
 
-    // Set a timeout to display the error after 2 seconds if allPlayers is null
     const errorTimeout = setTimeout(() => {
-      if (!allPlayers) {
+      if (!allPlayers.length) {
         setShowError(true);
       }
     }, 500);
 
-    // Cleanup timeout on component unmount
     return () => clearTimeout(errorTimeout);
   }, []);
 
-
-
-
-//submit handler function for create team button
   const handleSubmit = async (values) => {
     const players15 = values.players15;
     const player15Count = players15.filter(
@@ -71,21 +59,17 @@ const CreateTeamModal = ({ setCreateTeamModal }) => {
       return;
     }
 
-    const player = values.players15.map((player)=>player.value)
-    
-    
+    const player = values.players15.map((player) => player.value);
 
     values = {
       ...values,
       country: user.country,
       teamCaptain: values.teamCaptain[0].value.name,
       coachName: user.username,
-      country:user.country,
+      country: user.country,
       totalPoints: 0,
-      players:player,
+      players: player,
     };
-
-    
 
     const formData = new FormData();
     for (let value in values) formData.append(value, values[value]);
@@ -103,7 +87,7 @@ const CreateTeamModal = ({ setCreateTeamModal }) => {
         .then((res) => res.json())
         .then(async (data) => {
           setImage(data.url);
-          
+
           const response = await fetch(
             `${process.env.REACT_APP_API_URL_AUTH}api/teams/create`,
             {
@@ -112,22 +96,18 @@ const CreateTeamModal = ({ setCreateTeamModal }) => {
               body: JSON.stringify({ ...values, icon: data.url }),
             }
           );
-         
-          
-          if(response.ok){
+
+          if (response.ok) {
             const responseData = await response.json();
             toast.success("Team Created.");
-            setCreateTeamModal("false")
-            // setTimeout(() => setCreateTeamModal("false"), 2000);
-          }else{
-            toast.error("Could not create team.")
+            setCreateTeamModal("false");
+          } else {
+            toast.error("Could not create team.");
           }
-
         });
     } catch (error) {
-      toast.error( error.message);
+      toast.error(error.message);
     }
-
   };
 
   const schema = Yup.object().shape({
@@ -178,7 +158,7 @@ const CreateTeamModal = ({ setCreateTeamModal }) => {
                   <Select
                     className="bg-white text-gray"
                     options={
-                      allPlayers != null &&
+                      allPlayers.length > 0 &&
                       allPlayers.map((player) => {
                         return {
                           label:
@@ -218,7 +198,7 @@ const CreateTeamModal = ({ setCreateTeamModal }) => {
                     type="file"
                     name="icon"
                     accept="image/*"
-                    required
+                    
                     onChange={(e) =>
                       setFieldValue("icon", e.currentTarget.files[0])
                     }

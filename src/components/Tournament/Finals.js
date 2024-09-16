@@ -6,7 +6,9 @@ const Finals = () => {
   const { id } = useParams();
   const [finalMatches, setFinalMatches] = useState(null);
 
-  const getGroupMatches = async () => {
+
+  //get the schedule of the final match
+  const getFinalMatchSchedule = async () => {
     try {
       const response = await fetch(
         `${process.env.REACT_APP_API_URL_GAME_ENGINE}api/admin/tournaments/final/schedule-matches/${id}`,

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Squad from "../components/Teams/Squad";
 import Error from "../components/Utilities/Error";
 
 const Team = () => {
@@ -62,7 +61,7 @@ const Team = () => {
         </button>
       </div>
 
-      {players && <Squad players={players} />}
+      {/* {players && <Squad players={players} />} */}
     </div>
   );
 };

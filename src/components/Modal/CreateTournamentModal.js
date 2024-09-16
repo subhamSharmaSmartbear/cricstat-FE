@@ -22,6 +22,7 @@ const CreateTournamentModal = ({ setCreateTournamentModal }) => {
     },
   ];
 
+  //schema for the create tournament
   const schema = Yup.object().shape({
     tournamentName: Yup.string(),
     tournamentType: Yup.string(),

@@ -13,7 +13,7 @@ const Login = ({setPage}) => {
     password: Yup.string().required("Password is a required field"),
   });
 
-  // Handle form submission
+  // Handle login form submission
   const handleFormSubmit = async (values) => {
     
 

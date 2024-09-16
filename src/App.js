@@ -3,7 +3,6 @@ import Register from "./pages/Register";
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
 import Matches from "./pages/Matches";
-import Match from "./pages/Match";
 import Match2 from "./pages/Match2";
 import Teams from "./pages/Teams";
 import Tournaments from "./pages/Tournaments";

@@ -11,6 +11,8 @@ const Match = () => {
   const { id } = useParams();
 
   useEffect(() => {
+
+    //get the scores live
     const GetMatchResponse = async () => {
       try {
         const response = await fetch(

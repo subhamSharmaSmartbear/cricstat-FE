@@ -100,9 +100,10 @@ const Tournament = () => {
             </div>
             <div className="w-[20%] h-[100%]  font-extralight text-white flex flex-col  items-start gap-[1rem]">
               <span className="font-bold">Admin : {user.name}</span>
-              {user && user.role === "ADMIN" && (
+              {user && user.role === "ADMIN" && tournament.status === "PLANNED" && (
                 <button
                   onClick={startTournament}
+                  disabled={tournament.status === "PLANNED" ? true:false}
                   className={`w-[5rem] px-[1rem] py-[0.5rem] rounded-[10px] font-bold bg-[#434343] ${tournament.status === "ONGOING" && tournament.registeredTeamsCount === 6 && "discursor-not-allowed"}`}
                 >
                   Start
