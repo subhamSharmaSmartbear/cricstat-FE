@@ -1,4 +1,3 @@
-[Watch the demo video]([https://www.youtube.com/watch?v=6nM9_iLZ-0s])
 
 
 # CRICKSTAT
@@ -6,6 +5,10 @@
 ## Overview
 
 CricStat is a React-based web application designed to manage and display cricket statistics, matches, teams, and tournaments.
+
+## Demo Video
+
+[![Watch the video](https://img.youtube.com/vi/6nM9_iLZ-0s/0.jpg)](https://www.youtube.com/watch?v=6nM9_iLZ-0s)
 
 ## Project Structure
 
